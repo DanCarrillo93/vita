@@ -1,0 +1,214 @@
+[
+    {
+        "id": 0,
+        "weapon": "AK-47"
+    },
+    {
+        "id": 1,
+        "weapon": "AUG"
+    },
+    {
+        "id": 2,
+        "weapon": "AWP"
+    },
+    {
+        "id": 3,
+        "weapon": "CZ75-Auto"
+    },
+    {
+        "id": 4,
+        "weapon": "Desert Eagle"
+    },
+    {
+        "id": 5,
+        "weapon": "Dual Berettas"
+    },
+    {
+        "id": 6,
+        "weapon": "FAMAS"
+    },
+    {
+        "id": 7,
+        "weapon": "Five-SeveN"
+    },
+    {
+        "id": 8,
+        "weapon": "G3SG1"
+    },
+    {
+        "id": 9,
+        "weapon": "Galil AR"
+    },
+    {
+        "id": 10,
+        "weapon": "Glock-18"
+    },
+    {
+        "id": 11,
+        "weapon": "M249"
+    },
+    {
+        "id": 12,
+        "weapon": "M4A1-S"
+    },
+    {
+        "id": 13,
+        "weapon": "M4A4"
+    },
+    {
+        "id": 14,
+        "weapon": "MAC-10"
+    },
+    {
+        "id": 15,
+        "weapon": "MAG-7"
+    },
+    {
+        "id": 16,
+        "weapon": "MP5-SD"
+    },
+    {
+        "id": 17,
+        "weapon": "MP7"
+    },
+    {
+        "id": 18,
+        "weapon": "MP9"
+    },
+    {
+        "id": 19,
+        "weapon": "Negev"
+    },
+    {
+        "id": 20,
+        "weapon": "Nova"
+    },
+    {
+        "id": 21,
+        "weapon": "P2000"
+    },
+    {
+        "id": 22,
+        "weapon": "P250"
+    },
+    {
+        "id": 23,
+        "weapon": "P90"
+    },
+    {
+        "id": 24,
+        "weapon": "PP-Bizon"
+    },
+    {
+        "id": 25,
+        "weapon": "R8 Revolver"
+    },
+    {
+        "id": 26,
+        "weapon": "SCAR-20"
+    },
+    {
+        "id": 27,
+        "weapon": "SG 553"
+    },
+    {
+        "id": 28,
+        "weapon": "SSG 08"
+    },
+    {
+        "id": 29,
+        "weapon": "Sawed-Off"
+    },
+    {
+        "id": 30,
+        "weapon": "Tec-9"
+    },
+    {
+        "id": 31,
+        "weapon": "UMP-45"
+    },
+    {
+        "id": 32,
+        "weapon": "USP-S"
+    },
+    {
+        "id": 33,
+        "weapon": "XM1014"
+    },
+    {
+        "id": 34,
+        "weapon": "Bayonet"
+    },
+    {
+        "id": 35,
+        "weapon": "Bowie Knife"
+    },
+    {
+        "id": 36,
+        "weapon": "Butterfly Knife"
+    },
+    {
+        "id": 37,
+        "weapon": "Classic Knife"
+    },
+    {
+        "id": 38,
+        "weapon": "Falchion Knife"
+    },
+    {
+        "id": 39,
+        "weapon": "Flip Knife"
+    },
+    {
+        "id": 40,
+        "weapon": "Gut Knife"
+    },
+    {
+        "id": 41,
+        "weapon": "Huntsman Knife"
+    },
+    {
+        "id": 42,
+        "weapon": "Karambit"
+    },
+    {
+        "id": 43,
+        "weapon": "M9 Bayonet"
+    },
+    {
+        "id": 44,
+        "weapon": "Navaja Knife"
+    },
+    {
+        "id": 45,
+        "weapon": "Nomad Knife"
+    },
+    {
+        "id": 46,
+        "weapon": "Paracord Knife"
+    },
+    {
+        "id": 47,
+        "weapon": "Shadow Daggers"
+    },
+    {
+        "id": 48,
+        "weapon": "Skeleton Knife"
+    },
+    {
+        "id": 49,
+        "weapon": "Stiletto Knife"
+    },
+    {
+        "id": 50,
+        "weapon": "Survival Knife"
+    },
+    {
+        "id": 51,
+        "weapon": "Talon Knife"
+    },
+    {
+        "id": 52,
+        "weapon": "Ursus Knife"
+    }
+]
