@@ -3,7 +3,7 @@ import { AuthProvider } from "./util/auth";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
-import PrivatePage from "./components/PrivatePage";
+import Dashboard from "./components/Dashboard";
 import SignupPage from "./components/SignupPage";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -19,8 +19,8 @@ function App() {
           <Route path="/login">
             <LoginPage />
           </Route>
-          <PrivateRoute path="/private">
-            <PrivatePage />
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
           </PrivateRoute>
           <Route path="/signup">
             <SignupPage />

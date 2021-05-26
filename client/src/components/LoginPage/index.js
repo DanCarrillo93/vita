@@ -30,7 +30,7 @@ function LoginPage() {
       <h1 className="text-gray-200 text-center text-7xl font-medium border-b-8 pb-5 font-russo">Login</h1>
       <form onSubmit={handleSubmit} className="bg-gray-500 mt-5 rounded-b-lg">
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Email</label>
+          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Email</label>
           <input
             id="email"
             type="email"
@@ -41,7 +41,7 @@ function LoginPage() {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Password</label>
+          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Password</label>
           <input
             id="password"
             type="password"
@@ -53,7 +53,7 @@ function LoginPage() {
         </div>
         <br />
         <div className="flex flex-row-reverse">
-          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo" disabled={auth.pending}>
+          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo tracking-wide" disabled={auth.pending}>
             {auth.pending ? "⌛" : "Submit"}
           </button>
         </div>

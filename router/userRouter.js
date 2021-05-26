@@ -20,9 +20,9 @@ userRouter.get("/", async (req, res, next) => {
 
 userRouter.post("/", async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, steam } = req.body;
 
-    const user = new User({ username, email, password });
+    const user = new User({ username, email, password, steam });
     await user.save();
 
     // avoid leaking password to client and initialize the session
