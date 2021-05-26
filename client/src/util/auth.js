@@ -74,12 +74,13 @@ export const AuthProvider = ({ children }) => {
     await userApi.logout();
   };
 
-  const signup = async ({ email, username, password }) => {
+  const signup = async ({ email, username, password, steam }) => {
     dispatch({ type: LOGIN_PENDING });
     const { result, error } = await userApi.signup({
       email,
       username,
       password,
+      steam
     });
     if (error) {
       return dispatch({ type: LOGIN_ERROR, error });
