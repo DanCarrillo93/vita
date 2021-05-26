@@ -26,35 +26,42 @@ function LoginPage() {
     : auth.error || "Please complete the form and click submit.";
 
   return (
-    <>
-      <h1>Login</h1>
+    <div className="container mx-auto px-4 bg-gray-700 rounded-md p-5">
+      <h1 className="text-gray-200 text-center text-7xl font-medium border-b-4 pb-10">Login</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3">Email</label>
+          <input
+            id="email"
+            type="email"
+            disabled={auth.pending}
+            value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            className="mx-12 text-4xl font-medium"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3">Password</label>
+          <input
+            id="password"
+            type="password"
+            disabled={auth.pending}
+            value={password}
+            onChange={(e) => setPassword(e.target.value.trim())}
+            className="mx-12 text-4xl font-medium"
+          />
+        </div>
         <br />
-        <input
-          id="email"
-          type="email"
-          disabled={auth.pending}
-          value={email}
-          onChange={(e) => setEmail(e.target.value.trim())}
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <br />
-        <input
-          id="password"
-          type="password"
-          disabled={auth.pending}
-          value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
-        />
-        <br />
-        <button type="submit" disabled={auth.pending}>
-          {auth.pending ? "⌛" : "Submit"}
-        </button>
+        <div className="flex flex-row-reverse">
+          <button type="submit" className="text-gray-700 text-4xl font-medium bg-gray-200 rounded-lg px-3 py-1 mx-12" disabled={auth.pending}>
+            {auth.pending ? "⌛" : "Submit"}
+          </button>
+        </div>
       </form>
-      <p>{message}</p>
-    </>
+      <div className="flex flex-row-reverse">
+        <p className="mx-12 text-xl text-gray-200 mt-2">{message}</p>
+      </div>
+    </div>
   );
 }
 
