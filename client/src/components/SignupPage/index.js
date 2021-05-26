@@ -33,45 +33,51 @@ function SignupPage() {
     : auth.error || "Please complete the form and click submit.";
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+    <div className="container mx-auto px-4 bg-gray-900 rounded-lg p-5 w-3/4">
+      <h1 className="text-gray-200 text-center text-7xl font-medium border-b-8 pb-5 font-russo">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="bg-gray-500 mt-5 rounded-b-lg">
+        <div className="flex flex-col">
+          <label htmlFor="username" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Username</label>
+          <input
+            id="username"
+            type="text"
+            disabled={auth.pending}
+            value={username}
+            onChange={(e) => setUsername(e.target.value.trim())}
+            className="mx-12 text-2xl py-1 px-2 font-medium"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Email</label>
+          <input
+            id="email"
+            type="email"
+            disabled={auth.pending}
+            value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            className="mx-12 text-2xl py-1 px-2 font-medium"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Password</label>
+          <input
+            id="password"
+            type="password"
+            disabled={auth.pending}
+            value={password}
+            onChange={(e) => setPassword(e.target.value.trim())}
+            className="mx-12 text-2xl py-1 px-2 font-medium"
+          />
+        </div>
         <br />
-        <input
-          id="username"
-          type="text"
-          disabled={auth.pending}
-          value={username}
-          onChange={(e) => setUsername(e.target.value.trim())}
-        />
-        <br />
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
-          id="email"
-          type="email"
-          disabled={auth.pending}
-          value={email}
-          onChange={(e) => setEmail(e.target.value.trim())}
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <br />
-        <input
-          id="password"
-          type="password"
-          disabled={auth.pending}
-          value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
-        />
-        <br />
-        <button type="submit" disabled={auth.pending}>
-          {auth.pending ? "⌛" : "Submit"}
-        </button>
+        <div className="flex flex-row-reverse">
+          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo mb-4" disabled={auth.pending}>
+            {auth.pending ? "⌛" : "Submit"}
+          </button>
+        </div>
       </form>
       <p>{message}</p>
-    </>
+    </div>
   );
 }
 
