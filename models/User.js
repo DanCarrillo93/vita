@@ -15,6 +15,11 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minLength: 2,
   },
+  steamAccount: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   email: {
     type: String,
     required: true,
@@ -31,6 +36,10 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minLength: [8, "Password must contain at least 8 characters."],
   },
+  inventory: [{
+    type: String,
+    trim: true,
+  }],
 });
 
 UserSchema.pre("save", async function hashPassword() {
