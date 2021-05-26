@@ -21,8 +21,8 @@ function Navbar() {
 function UserNavs({ auth }) {
   return (
     <div className="flex flex-row">
-      <Nav to="/private">Private</Nav>
-      <button onClick={() => auth.logout()}>Logout</button>
+      <Nav className="px-3 font-russo text-2xl text-gray-200" to="/dashboard">Dashboard</Nav>
+      <button className="px-3 font-russo text-2xl text-gray-200" onClick={() => auth.logout()}>Logout</button>
     </div>
   );
 }

@@ -41,7 +41,7 @@ function SignupPage() {
       <h1 className="text-gray-200 text-center text-7xl font-medium border-b-8 pb-5 font-russo">Sign Up</h1>
       <form onSubmit={handleSubmit} className="bg-gray-500 mt-5 rounded-b-lg">
         <div className="flex flex-col">
-          <label htmlFor="username" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Username</label>
+          <label htmlFor="username" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Username</label>
           <input
             id="username"
             type="text"
@@ -52,7 +52,7 @@ function SignupPage() {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Email</label>
+          <label htmlFor="email" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Email</label>
           <input
             id="email"
             type="email"
@@ -63,7 +63,7 @@ function SignupPage() {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Password</label>
+          <label htmlFor="password" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Password</label>
           <input
             id="password"
             type="password"
@@ -74,19 +74,19 @@ function SignupPage() {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="steam" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Steam Account</label>
+          <label htmlFor="steam" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo tracking-wide">Steam Account</label>
           <input
             id="steam"
             type="text"
             disabled={auth.pending}
-            value={password}
+            value={steam}
             onChange={(e) => setSteam(e.target.value.trim())}
             className="mx-12 text-2xl py-1 px-2 font-medium"
           />
         </div>
         <br />
         <div className="flex flex-row-reverse">
-          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo" disabled={auth.pending}>
+          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo tracking-wide" disabled={auth.pending}>
             {auth.pending ? "⌛" : "Submit"}
           </button>
         </div>
