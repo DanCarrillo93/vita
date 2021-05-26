@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { hash, compare } = require("bcrypt");
 const { isEmail } = require("../util/validate");
+const uuid = require("mongoose-uuid");
 
 const HASH_SALT_ROUNDS = 10;
 
@@ -15,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minLength: 2,
   },
-  steamAccount: {
+  steam: {
     type: String,
     required: true,
     trim: true,
@@ -37,9 +38,12 @@ const UserSchema = new mongoose.Schema({
     minLength: [8, "Password must contain at least 8 characters."],
   },
   inventory: [{
-    type: String,
-    trim: true,
-  }],
+    itemId: {
+      type: String,
+      default: uuid.v1,
+      unique: true},
+      skinId: String, sub_type: String, skin: String, condition: String, URL: String, rarity: String
+  }]
 });
 
 UserSchema.pre("save", async function hashPassword() {
