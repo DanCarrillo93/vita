@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const WeaponsSchema = new mongoose.Schema({
-    id: {
+const WeaponSchema = new mongoose.Schema({
+    _id: {
         type: String,
         required: true,
         unique: true
@@ -38,6 +38,6 @@ const WeaponsSchema = new mongoose.Schema({
     }
 });
 
-const Weapons = mongoose.model("Weapons", WeaponsSchema);
+const Weapon = mongoose.model("Weapon", WeaponSchema);
 
-module.exports = Weapons;
+module.exports = Weapon;
