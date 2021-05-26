@@ -8,6 +8,7 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [steam, setSteam] = useState("");
 
   // custom hook redirects to previous page or default page if user is logged in
   useLoginRedirect();
@@ -24,8 +25,11 @@ function SignupPage() {
     if (!password || password.length < 8) {
       return alert("Invalid password. Must contain at least 8 characters.");
     }
+    if (!steam || steam.length !== 17) {
+      return alert("Must provide valid Steam ID (17-digit number).")
+    }
 
-    await auth.signup({ email, username, password });
+    await auth.signup({ email, username, password, steam });
   };
 
   const message = auth.pending
@@ -69,14 +73,27 @@ function SignupPage() {
             className="mx-12 text-2xl py-1 px-2 font-medium"
           />
         </div>
+        <div className="flex flex-col">
+          <label htmlFor="steam" className="text-gray-200 text-4xl font-medium mx-12 my-3 font-russo">Steam Account</label>
+          <input
+            id="steam"
+            type="text"
+            disabled={auth.pending}
+            value={password}
+            onChange={(e) => setSteam(e.target.value.trim())}
+            className="mx-12 text-2xl py-1 px-2 font-medium"
+          />
+        </div>
         <br />
         <div className="flex flex-row-reverse">
-          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo mb-4" disabled={auth.pending}>
+          <button type="submit" className="text-gray-200 text-4xl font-medium bg-gray-900 rounded-lg px-3 py-1 mx-12 font-russo" disabled={auth.pending}>
             {auth.pending ? "⌛" : "Submit"}
           </button>
         </div>
+        <div className="flex flex-row-reverse">
+          <p className="mx-12 text-xl text-gray-900 my-2">{message}</p>
+        </div>
       </form>
-      <p>{message}</p>
     </div>
   );
 }
