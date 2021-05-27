@@ -15,7 +15,7 @@ function HomePage() {
           <button onClick={() => history.push("/signup")}>Signup</button>
         </>
       )}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="container grid grid-cols-3 gap-4">
         <SimpleCard />
         <SimpleCard />
         <SimpleCard />
