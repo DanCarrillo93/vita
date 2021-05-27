@@ -15,8 +15,13 @@ function HomePage() {
           <button onClick={() => history.push("/signup")}>Signup</button>
         </>
       )}
-      <SimpleCard />
-      <SimpleCard />
+      <div className="grid grid-cols-3 gap-4">
+        <SimpleCard />
+        <SimpleCard />
+        <SimpleCard />
+        <SimpleCard />
+        <SimpleCard />
+      </div>
     </>
   );
 }
