@@ -70,4 +70,18 @@ userRouter.delete("/logout", async (req, res, next) => {
   }
 });
 
+userRouter.get("/details", async (req, res, next) => {
+  try {
+    if (!req.session?.user) {
+      return res.status(401).json({ message: "Must be logged in." });
+    }
+    const user = await User.findById(req.session.user._id).populate({
+      path: "inventory.item",
+    });
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = userRouter;

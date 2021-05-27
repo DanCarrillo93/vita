@@ -5,7 +5,7 @@ const { User } = require("../models");
 const itemController = {
   addItem: function (req, res) {
     User.findByIdAndUpdate(req.session.user._id, {
-      $push: { inventory: { item: req.body.item } },
+      $push: { inventory: { weapon: req.body.weaponId } },
     })
       .then((user) => res.json(user.inventory))
       .catch((err) => res.status(401).json(err));
