@@ -15,8 +15,15 @@ function HomePage() {
           <button onClick={() => history.push("/signup")}>Signup</button>
         </>
       )}
-      <SimpleCard />
-      <SimpleCard />
+      <div className="flex flex-row justify-center">
+        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <SimpleCard />
+          <SimpleCard />
+          <SimpleCard />
+          <SimpleCard />
+          <SimpleCard />
+        </div>
+      </div>
     </>
   );
 }
