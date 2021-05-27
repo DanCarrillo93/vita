@@ -14,6 +14,16 @@ function Dashboard() {
   const [formCondition, setFormCondition] = useState("");
   const [skinList, setSkinList] = useState([]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (formWeapon==="" || formSkin==="" || formCondition==="") {
+      console.log("Form incomplete");
+      return;
+    }
+    const name = `${formWeapon} | ${formSkin} (${formCondition})`;
+    console.log(name);
+  }
+
   async function handleConditionChange(e) {
     e.preventDefault();
     const condition = e.target.value;
@@ -55,7 +65,7 @@ function Dashboard() {
 
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          <AddItemForm weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
+          <AddItemForm handleSubmit={handleSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory
