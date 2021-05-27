@@ -12,10 +12,10 @@ const BundleSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    bundlePrice: [{
+    bundle_price: {
         type: Number,
         required: true
-    }],
+    },
    items: [{
     type: Schema.Types.ObjectId,
     ref: 'Weapon'

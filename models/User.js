@@ -46,6 +46,11 @@ const UserSchema = new Schema({
       // skinId: String, sub_type: String, skin: String, condition: String, URL: String, rarity: String
     },
   ],
+  balance: {
+    type: Number,
+    required: true,
+    default: 0
+},
 });
 
 UserSchema.pre("save", async function hashPassword() {
