@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { hash, compare } = require("bcrypt");
 const { isEmail } = require("../util/validate");
+const ItemSchema = require("./itemSchema");
 const { Schema } = mongoose;
 
 const HASH_SALT_ROUNDS = 10;
@@ -37,20 +38,12 @@ const UserSchema = new Schema({
     trim: true,
     minLength: [8, "Password must contain at least 8 characters."],
   },
-  inventory: [
-    {
-      item: {
-        type: String,
-        ref: "Weapon",
-      },
-      // skinId: String, sub_type: String, skin: String, condition: String, URL: String, rarity: String
-    },
-  ],
+  inventory: [ItemSchema],
   balance: {
     type: Number,
     required: true,
-    default: 0
-},
+    default: 0,
+  },
 });
 
 UserSchema.pre("save", async function hashPassword() {
