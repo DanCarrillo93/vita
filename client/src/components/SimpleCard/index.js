@@ -1,6 +1,6 @@
 function SimpleCard() {
   return (
-    <div className="border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
+    <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
       <div className="text-gray-200 rounded m-2">
         <h6 className="mb-1">Bundle Title (most expensive item)</h6>
         <img
