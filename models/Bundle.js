@@ -17,12 +17,13 @@ const BundleSchema = new mongoose.Schema({
         required: true
     }],
    items: [{
-        itemId: String, skinId: String, sub_type: String, skin: String, condition: String, URL: String, rarity: String, 
-    }],
+    type: Schema.Types.ObjectId,
+    ref: 'Weapon'
+    }],      
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
-    }
+    },
 });
 
 const Bundle = mongoose.model("Bundle", BundleSchema);
