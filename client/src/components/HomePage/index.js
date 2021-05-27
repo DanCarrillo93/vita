@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../util/auth";
+import SimpleCard from "../SimpleCard";
 function HomePage() {
   const history = useHistory();
   const auth = useAuth();
@@ -14,6 +15,8 @@ function HomePage() {
           <button onClick={() => history.push("/signup")}>Signup</button>
         </>
       )}
+      <SimpleCard />
+      <SimpleCard />
     </>
   );
 }
