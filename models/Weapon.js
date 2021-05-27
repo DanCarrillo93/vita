@@ -14,7 +14,6 @@ const WeaponSchema = new mongoose.Schema({
     URL: {
         type: String,
         required: true,
-        unique: true
     },
     weapon_type: {
         type: String,
