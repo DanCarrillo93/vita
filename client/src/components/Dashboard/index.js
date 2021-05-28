@@ -2,7 +2,7 @@ import { useAuth } from "../../util/auth";
 import SimpleCard from "../SimpleCard";
 import AddItemForm from "../AddItemForm";
 import AddBundleForm from "../AddBundleForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import weaponAPI from "../../util/weaponAPI";
 const weaponList = require("../../data/weapons.json");
 
@@ -15,6 +15,14 @@ function Dashboard() {
   const [formSkin, setFormSkin] = useState("");
   const [formCondition, setFormCondition] = useState("");
   const [skinList, setSkinList] = useState([]);
+  const [userInv, setUserInv] = useState([]);
+
+  useEffect(() => {
+    weaponAPI.fetchUserInventory()
+    .then(user => {
+      setUserInv(user.data.inventory)
+    })
+  },[userInv]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,9 +32,8 @@ function Dashboard() {
     }
     const name = { name: `${formWeapon} | ${formSkin} (${formCondition})`};
     await weaponAPI.addItem(name);
-    // console.log(user);
     const user = await weaponAPI.fetchUserInventory();
-    console.log(user.data.inventory);
+    setUserInv(user.data.inventory);
     setFormWeapon("");
     setFormSkin("");
     setFormCondition("");
@@ -79,10 +86,11 @@ function Dashboard() {
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory
           <div className="grid grid-cols-3">
-            <SimpleCard />
-            <SimpleCard />
-            <SimpleCard />
-            <SimpleCard />
+            {userInv.map((inv, index) => {
+              return(
+                <SimpleCard key={index} inv={inv} page="dashboard" />
+              )
+            })}
           </div>
         </div>
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
