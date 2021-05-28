@@ -22,13 +22,13 @@ function Dashboard() {
       return;
     }
     const name = { name: `${formWeapon} | ${formSkin} (${formCondition})`};
-    // console.log(name);
-    const user = await weaponAPI.addItem(name);
-    console.log(user);
+    await weaponAPI.addItem(name);
+    // console.log(user);
+    const user = await weaponAPI.fetchUserInventory();
+    console.log(user.data.inventory);
     setFormWeapon("");
     setFormSkin("");
     setFormCondition("");
-    
   }
 
   async function handleConditionChange(e) {
