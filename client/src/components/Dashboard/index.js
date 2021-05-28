@@ -2,6 +2,7 @@ import { useAuth } from "../../util/auth";
 import SimpleCard from "../SimpleCard";
 import AddItemForm from "../AddItemForm";
 import { useState } from "react";
+import weaponAPI from "../../util/weaponAPI";
 const weaponList = require("../../data/weapons.json");
 
 // PrivatePage is an example include to demonstrate a route protected from
@@ -20,8 +21,14 @@ function Dashboard() {
       console.log("Form incomplete");
       return;
     }
-    const name = `${formWeapon} | ${formSkin} (${formCondition})`;
-    console.log(name);
+    const name = { name: `${formWeapon} | ${formSkin} (${formCondition})`};
+    await weaponAPI.addItem(name);
+    // console.log(user);
+    const user = await weaponAPI.fetchUserInventory();
+    console.log(user.data.inventory);
+    setFormWeapon("");
+    setFormSkin("");
+    setFormCondition("");
   }
 
   async function handleConditionChange(e) {

@@ -76,7 +76,7 @@ userRouter.get("/details", async (req, res, next) => {
       return res.status(401).json({ message: "Must be logged in." });
     }
     const user = await User.findById(req.session.user._id).populate({
-      path: "inventory.item",
+      path: "inventory.weapon",
     });
     res.json(user);
   } catch (error) {
