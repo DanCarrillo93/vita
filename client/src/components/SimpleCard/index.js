@@ -1,5 +1,5 @@
-function SimpleCard({inv, page}) {
-  // console.log(inv);
+function SimpleCard({inv, page, handleBundleChange}) {
+  // console.log(inv.weapon);
   return (
     <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
       <div className="text-gray-200 rounded m-2">
@@ -11,9 +11,12 @@ function SimpleCard({inv, page}) {
         />
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-end">
           {/* <p className="mr-2">This bundle has --x-- other items</p> */}
-          <button className="text-xs font-sans font-bold border-2 border-green-900 bg-green-700 rounded p-2">
+          {!inv.bundled && <button onClick={handleBundleChange} id={inv.weapon._id} className="text-xs font-sans font-bold border-2 border-green-900 bg-green-700 rounded p-2">
             Add to bundle
-          </button> 
+          </button>}
+          {inv.bundled && <button onClick={handleBundleChange} id={inv.weapon._id} className="text-xs font-sans font-bold border-2 border-green-900 bg-red-700 rounded p-2">
+            Remove from bundle
+          </button>}
         </div>
       </div>
     </div>

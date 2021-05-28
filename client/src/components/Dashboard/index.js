@@ -20,9 +20,14 @@ function Dashboard() {
   useEffect(() => {
     weaponAPI.fetchUserInventory()
     .then(user => {
-      setUserInv(user.data.inventory)
+      const items = user.data.inventory.map(item => {return {...item, bundled: false}});
+      // const itemsPriced = 
+      // items.map(item => console.log())
+
+
+      setUserInv(items);
     })
-  },[userInv]);
+  },[]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,7 +38,8 @@ function Dashboard() {
     const name = { name: `${formWeapon} | ${formSkin} (${formCondition})`};
     await weaponAPI.addItem(name);
     const user = await weaponAPI.fetchUserInventory();
-    setUserInv(user.data.inventory);
+    const items = user.data.inventory.map(item => {return {...item, bundled: false}});
+    setUserInv(items);
     setFormWeapon("");
     setFormSkin("");
     setFormCondition("");
@@ -70,7 +76,22 @@ function Dashboard() {
     const skinList = require(`../../data/skins/${weapon}-skinList.json`);
     await setFormWeapon(weapon);
     await setSkinList(skinList);
-    }
+  }
+
+  async function handleBundleChange(e) {
+    const itemId = e.target.id;
+    const newInv = userInv.map(item => {
+      if (item.weapon._id === itemId) {
+        if (item.bundled) {
+          item.bundled = false;
+        } else {
+          item.bundled = true;
+        };
+      };
+      return item;
+    });
+    setUserInv(newInv);
+  }
 
   return (
     <div className="container mx-auto font-russo">
@@ -88,7 +109,7 @@ function Dashboard() {
           <div className="grid grid-cols-3">
             {userInv.map((inv, index) => {
               return(
-                <SimpleCard key={index} inv={inv} page="dashboard" />
+                <SimpleCard key={index} inv={inv} page="dashboard" handleBundleChange={handleBundleChange} />
               )
             })}
           </div>
