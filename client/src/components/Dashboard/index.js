@@ -1,6 +1,7 @@
 import { useAuth } from "../../util/auth";
 import SimpleCard from "../SimpleCard";
 import AddItemForm from "../AddItemForm";
+import AddBundleForm from "../AddBundleForm";
 import { useState } from "react";
 import weaponAPI from "../../util/weaponAPI";
 const weaponList = require("../../data/weapons.json");
@@ -73,6 +74,7 @@ function Dashboard() {
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
           <AddItemForm handleSubmit={handleSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
+          <AddBundleForm />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory
