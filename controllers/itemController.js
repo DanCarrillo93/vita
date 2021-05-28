@@ -12,21 +12,10 @@ const itemController = {
       });
       return res.json(user);
     } catch (error) {
-      res.status(403).end();
+      res.status(400).end();
       console.log(error);
     }
   },
-  // addBundle: function () = {
-  //   Bundle.create({
-
-  //   })
-  // },
-
-  // getUser: function (req, res) {
-  //   User.findbyId(req.session.user._id)
-  //     .then((res) => console.log(res.inventory))
-  //     .catch((err) => res.status(400).json(err));
-  // },
 };
 
 module.exports = itemController;
