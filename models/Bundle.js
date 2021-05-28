@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const ItemSchema = require("./itemSchema");
 const { Schema } = mongoose;
 
 const BundleSchema = new mongoose.Schema({
@@ -9,10 +8,6 @@ const BundleSchema = new mongoose.Schema({
   //   unique: true,
   //   indexed: true,
   // },
-  mvp: {
-    name: { type: String },
-    url: { type: String },
-  },
   bundle_type: [
     {
       type: String,
@@ -24,7 +19,17 @@ const BundleSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  items: [ItemSchema],
+  items: [
+    {
+      _id: {
+        type: Schema.Types.ObjectId,
+      },
+      weapon: {
+        type: String,
+        ref: "Weapon",
+      },
+    },
+  ],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
