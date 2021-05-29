@@ -7,7 +7,12 @@ const weaponAPI = {
 
     fetchUserInventory: function() {
         return axios.get("/api/users/details");
-    }
+    },
+
+    fetchWeaponInfo: function(weapon) {
+
+        return axios.get(`/api/prices?id=${weapon}`);
+    },
 };
 
 export default weaponAPI;
