@@ -20,11 +20,13 @@ function Dashboard() {
   useEffect(() => {
     weaponAPI.fetchUserInventory()
     .then(user => {
-      const items = user.data.inventory.map(item => {return {...item, bundled: false}});
-      // const itemsPriced = 
-      // items.map(item => console.log())
+      const items = user.data.inventory.map(item => {
+        weaponAPI.fetchWeaponInfo(item.weapon.name)
+        .then(price => console.log(price));
+        return {...item, bundled: false}
+      });
 
-
+      console.log(items);
       setUserInv(items);
     })
   },[]);
