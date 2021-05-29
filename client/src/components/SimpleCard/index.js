@@ -1,5 +1,4 @@
 function SimpleCard({inv, page, handleBundleChange}) {
-  // console.log(inv.weapon);
   return (
     <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
       <div className="text-gray-200 rounded m-2">

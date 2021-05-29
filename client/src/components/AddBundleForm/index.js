@@ -1,4 +1,4 @@
-function AddBundleForm() {
+function AddBundleForm({estimate}) {
     return (
         <form className="border-4 border-gray-300 rounded p-3 mb-2">
             Bundle Items
@@ -8,7 +8,7 @@ function AddBundleForm() {
             </div>
             <div className="flex flex-row justify-between content-center">
                 <div className="flex flex-col justify-center">
-                    <p className="inline-block align-text-bottom text-base align-middle">Price Estimate: $20</p>
+                    <p className="inline-block align-text-bottom text-base align-middle">Price Estimate: ${estimate}</p>
                 </div>
                 <button type="submit" className="text-sm py-2 px-3 font-sans font-bold border-2 border-green-900 bg-green-700 rounded">Bundle</button>
             </div>

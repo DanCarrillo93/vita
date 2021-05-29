@@ -14,6 +14,7 @@ function Dashboard() {
   const [formWeapon, setFormWeapon] = useState("");
   const [formSkin, setFormSkin] = useState("");
   const [formCondition, setFormCondition] = useState("");
+  const [priceEstimate, setPriceEstimate] = useState(0);
   const [skinList, setSkinList] = useState([]);
   const [userInv, setUserInv] = useState([]);
 
@@ -21,7 +22,7 @@ function Dashboard() {
     weaponAPI.fetchUserInventory()
     .then(user => {
       const items = user.data.inventory.map(item => {
-        return {...item, bundled: false, price: "undefined"}
+        return {...item, bundled: false, price: undefined}
       });
       setUserInv(items);
     })
@@ -94,12 +95,22 @@ function Dashboard() {
     });
     // console.log(itemIndex);
 
-    if (newInv[itemIndex].price === "undefined") {
+    if (!newInv[itemIndex].price) {
       const priceInfo = await weaponAPI.fetchWeaponInfo(newInv[itemIndex].weapon.name);
       newInv[itemIndex].price = priceInfo.data.average_price;
     }
-    console.log(newInv);
     setUserInv(newInv);
+    handleEstimate();
+  }
+
+  function handleEstimate() {
+    let estimate = 0;
+    userInv.forEach(item => {
+      if (item.bundled && item.price) {
+        estimate = estimate + parseFloat(item.price);
+      }
+    })
+    setPriceEstimate(estimate.toFixed(2));
   }
 
   return (
@@ -111,7 +122,7 @@ function Dashboard() {
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
           <AddItemForm handleSubmit={handleSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
-          <AddBundleForm />
+          <AddBundleForm estimate={priceEstimate} />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory
