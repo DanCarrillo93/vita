@@ -9,7 +9,7 @@ const weaponAPI = {
         return axios.get("/api/users/details");
     },
 
-    fetchWeaponInfo: async function(weapon) {
+    fetchWeaponInfo: function(weapon) {
 
         return axios.get(`/api/prices?id=${weapon}`);
     },

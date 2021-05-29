@@ -21,12 +21,8 @@ function Dashboard() {
     weaponAPI.fetchUserInventory()
     .then(user => {
       const items = user.data.inventory.map(item => {
-        weaponAPI.fetchWeaponInfo(item.weapon.name)
-        .then(price => console.log(price));
-        return {...item, bundled: false}
+        return {...item, bundled: false, price: "undefined"}
       });
-
-      console.log(items);
       setUserInv(items);
     })
   },[]);
@@ -54,6 +50,7 @@ function Dashboard() {
       setFormCondition("");
       return;
     };
+    console.log(userInv);
     setFormCondition(condition);
   }
 
@@ -82,8 +79,11 @@ function Dashboard() {
 
   async function handleBundleChange(e) {
     const itemId = e.target.id;
-    const newInv = userInv.map(item => {
+    let itemIndex;
+
+    const newInv = userInv.map((item, index) => {
       if (item.weapon._id === itemId) {
+        itemIndex = index;
         if (item.bundled) {
           item.bundled = false;
         } else {
@@ -92,6 +92,13 @@ function Dashboard() {
       };
       return item;
     });
+    // console.log(itemIndex);
+
+    if (newInv[itemIndex].price === "undefined") {
+      const priceInfo = await weaponAPI.fetchWeaponInfo(newInv[itemIndex].weapon.name);
+      newInv[itemIndex].price = priceInfo.data.average_price;
+    }
+    console.log(newInv);
     setUserInv(newInv);
   }
 
