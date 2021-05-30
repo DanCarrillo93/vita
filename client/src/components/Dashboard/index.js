@@ -38,7 +38,18 @@ function Dashboard() {
       console.log("Form incomplete");
       return;
     }
-    const name = { name: `${formWeapon} | ${formSkin} (${formCondition})` };
+    let nameId = -1;
+    weaponList.forEach((item, index) => {
+      if (item.weapon === formWeapon) {
+        nameId = index;
+      }
+    })
+    // console.log(nameId);
+    let weaponName = formWeapon;
+    if (nameId >= 34) {
+      weaponName = `★ ${formWeapon}`;
+    }
+    const name = { name: `${weaponName} | ${formSkin} (${formCondition})` };
     await weaponAPI.addItem(name);
     const user = await weaponAPI.fetchUserInventory();
     const items = user.data.userRes.inventory.map((item) => {
@@ -175,7 +186,7 @@ function Dashboard() {
       })
     );
     // setUserBundle(newUser.data.bundleRes.items);
-    console.log(newUser.data.bundleRes);
+    setUserBundle(newUser.data.bundleRes);
     setPriceEstimate(0);
     setBundlePrice("");
   }

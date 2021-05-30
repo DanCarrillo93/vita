@@ -1,11 +1,11 @@
 function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
-  console.log(_id);
+  // console.log(_id);
   return (
     <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
       <div className="text-gray-200 rounded m-2">
         <h6 className="mb-2">{items[0].weapon.name}</h6>
         <img
-          src={items[0].weapon.URL}
+          src={items[0].weapon.url}
           className="rounded bg-gray-800 p-3"
           alt="aaa"
         />

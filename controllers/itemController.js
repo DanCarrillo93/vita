@@ -7,7 +7,9 @@ const itemController = {
     try {
       // console.log(req.body);
       const { name } = req.body;
+      console.log(name);
       const weapon = await Weapon.findOne({ name }, { select: "_id" });
+      // console.log(weapon);
       const user = await User.findByIdAndUpdate(
         req.session.user._id,
         {
