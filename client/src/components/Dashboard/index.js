@@ -28,7 +28,7 @@ function Dashboard() {
       });
       setUserInv(items);
       setUserBundle(user.data.bundleRes);
-      console.log(userBundle);
+      // console.log(userBundle);
     });
   }, []);
 
@@ -96,10 +96,12 @@ function Dashboard() {
 
   async function handleBundleChange(e) {
     const itemId = e.target.id;
+    console.log(itemId);
     let itemIndex;
 
     const newInv = userInv.map((item, index) => {
-      if (item.weapon._id === itemId) {
+      console.log(item._id);
+      if (item._id === itemId) {
         itemIndex = index;
         if (item.bundled) {
           item.bundled = false;
@@ -109,7 +111,7 @@ function Dashboard() {
       }
       return item;
     });
-    // console.log(itemIndex);
+    console.log(itemIndex);
 
     if (!newInv[itemIndex].price) {
       const priceInfo = await weaponAPI.fetchWeaponInfo(
