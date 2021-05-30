@@ -1,5 +1,6 @@
 import { useAuth } from "../../util/auth";
 import SimpleCard from "../SimpleCard";
+import DashBundleCard from "../DashBundleCard";
 import AddItemForm from "../AddItemForm";
 import AddBundleForm from "../AddBundleForm";
 import { useState, useEffect } from "react";
@@ -179,6 +180,10 @@ function Dashboard() {
     setBundlePrice("");
   }
 
+  async function handleBundleDel(e) {
+    e.preventDefault();
+    console.log(e.target.id);
+  }
   return (
     <div className="mx-auto font-russo">
       <h1 className="text-5xl text-gray-300 flex-root border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
@@ -222,6 +227,21 @@ function Dashboard() {
         </div>
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
           Bundles
+          <div className="grid grid-cols-1">
+            {userBundle.map((bundle, index) => {
+              return (
+                <DashBundleCard
+                  bundle_price={bundle.bundle_price}
+                  items={bundle.items}
+                  _id={bundle._id}
+                  handleBundleDel={handleBundleDel}
+                  key={index}
+                  page="dashboard"
+                  handleBundleChange={handleBundleChange}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
