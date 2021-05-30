@@ -1,12 +1,14 @@
+const rarityColor = require("../../util/rarityColor");
+
 function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
-  // console.log(_id);
+  const color = rarityColor(items[0].weapon.rarity);
   return (
     <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
       <div className="text-gray-200 rounded m-2">
         <h6 className="mb-2">{items[0].weapon.name}</h6>
         <img
           src={items[0].weapon.url}
-          className="rounded bg-gray-800 p-3"
+          className={`rounded bg-gray-800 p-3 border-8 border-${color}`}
           alt="aaa"
         />
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-between">
@@ -14,7 +16,7 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
             <>
               <div className="flex flex-col justify-center">
                 <h6 className="text-sm">
-                  This bundle has {items.length} item(s)
+                  {items.length} item(s)<span className={`mx-4 uppercase text-sm bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>
                 </h6>
               </div>
               <button
@@ -23,7 +25,7 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
                 className="text-xs font-sans font-bold border-2 border-green-900 bg-red-700 rounded p-2"
               >
                 {" "}
-                Delete from bundle
+                Delete bundle
               </button>
             </>
           )}

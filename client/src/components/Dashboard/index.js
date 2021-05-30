@@ -100,7 +100,7 @@ function Dashboard() {
     let itemIndex;
 
     const newInv = userInv.map((item, index) => {
-      console.log(item._id);
+      // console.log(item._id);
       if (item._id === itemId) {
         itemIndex = index;
         if (item.bundled) {
@@ -111,7 +111,7 @@ function Dashboard() {
       }
       return item;
     });
-    console.log(itemIndex);
+    // console.log(itemIndex);
 
     if (!newInv[itemIndex].price) {
       const priceInfo = await weaponAPI.fetchWeaponInfo(
