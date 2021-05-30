@@ -17,6 +17,7 @@ function Dashboard() {
   const [priceEstimate, setPriceEstimate] = useState(0);
   const [skinList, setSkinList] = useState([]);
   const [userInv, setUserInv] = useState([]);
+  const [userBundle, setUserBundle] = useState([]);
   const [bundlePrice, setBundlePrice] = useState("");
 
   useEffect(() => {
@@ -162,10 +163,13 @@ function Dashboard() {
       bundle_type,
       newInv,
     };
-    console.log(bundle);
+    // console.log(bundle);
     const newUser = await weaponAPI.addBundle(bundle);
-    console.log(newUser);
-    setUserInv(newUser.data.userRes.inventory);
+    // console.log(newUser);
+    setUserInv(newUser.data.userRes.inventory.map((item) => {
+      return { ...item, bundled: false, price: undefined };
+    }));
+    setUserBundle(newUser.data.bundleRes.items);
     setPriceEstimate(0);
     setBundlePrice("");
   }
