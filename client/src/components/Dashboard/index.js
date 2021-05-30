@@ -22,10 +22,12 @@ function Dashboard() {
 
   useEffect(() => {
     weaponAPI.fetchUserInventory().then((user) => {
-      const items = user.data.inventory.map((item) => {
+      const items = user.data.userRes.inventory.map((item) => {
         return { ...item, bundled: false, price: undefined };
       });
       setUserInv(items);
+      setUserBundle(user.data.bundleRes);
+      console.log(userBundle);
     });
   }, []);
 
@@ -38,7 +40,7 @@ function Dashboard() {
     const name = { name: `${formWeapon} | ${formSkin} (${formCondition})` };
     await weaponAPI.addItem(name);
     const user = await weaponAPI.fetchUserInventory();
-    const items = user.data.inventory.map((item) => {
+    const items = user.data.userRes.inventory.map((item) => {
       return { ...item, bundled: false };
     });
     setUserInv(items);
@@ -166,10 +168,13 @@ function Dashboard() {
     // console.log(bundle);
     const newUser = await weaponAPI.addBundle(bundle);
     // console.log(newUser);
-    setUserInv(newUser.data.userRes.inventory.map((item) => {
-      return { ...item, bundled: false, price: undefined };
-    }));
-    setUserBundle(newUser.data.bundleRes.items);
+    setUserInv(
+      newUser.data.userRes.inventory.map((item) => {
+        return { ...item, bundled: false, price: undefined };
+      })
+    );
+    // setUserBundle(newUser.data.bundleRes.items);
+    console.log(newUser.data.bundleRes);
     setPriceEstimate(0);
     setBundlePrice("");
   }
