@@ -1,6 +1,6 @@
-function AddBundleForm({estimate, handlePriceChange, bundlePrice}) {
+function AddBundleForm({estimate, handlePriceChange, handleBundleSubmit, bundlePrice}) {
     return (
-        <form className="border-4 border-gray-300 rounded p-3 mb-2">
+        <form onSubmit={handleBundleSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
             Bundle Items
             <div className="font-russo text-base grid grid-cols-2">
                 <label htmlFor="bundle-price" className="text-right my-2 pr-2">Price ($)</label>

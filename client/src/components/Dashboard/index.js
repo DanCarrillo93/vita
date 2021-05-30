@@ -29,7 +29,7 @@ function Dashboard() {
     })
   },[]);
 
-  async function handleSubmit(e) {
+  async function handleWeaponSubmit(e) {
     e.preventDefault();
     if (formWeapon==="" || formSkin==="" || formCondition==="") {
       console.log("Form incomplete");
@@ -119,6 +119,29 @@ function Dashboard() {
     setBundlePrice(e.target.value);
   }
 
+  function handleBundleSubmit(e) {
+    e.preventDefault();
+    const bundleItems = userInv.filter(item => {
+      if (item.bundled) {
+        return item;
+      }
+    });
+    const items = bundleItems.map(item => {
+      return {
+        _id: item._id,
+        weapon: item.weapon._id
+      }
+    });
+    let bundle_type = [];
+    bundleItems.forEach(item => {
+      if (!bundle_type.includes(item.weapon.sub_type)) {
+        bundle_type.push(item.weapon.sub_type);
+      }
+    });
+    const bundle = {items, bundle_price: bundlePrice, bundle_type};
+    console.log(bundle);
+  }
+
   return (
     <div className="container mx-auto font-russo">
       <h1 className="text-5xl text-gray-300 flex-root border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
@@ -127,8 +150,8 @@ function Dashboard() {
 
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          <AddItemForm handleSubmit={handleSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
-          <AddBundleForm handlePriceChange={handlePriceChange} bundlePrice={bundlePrice} estimate={priceEstimate} />
+          <AddItemForm handleWeaponSubmit={handleWeaponSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
+          <AddBundleForm handleBundleSubmit={handleBundleSubmit} handlePriceChange={handlePriceChange} bundlePrice={bundlePrice} estimate={priceEstimate} />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory

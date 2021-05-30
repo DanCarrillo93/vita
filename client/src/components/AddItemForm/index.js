@@ -1,6 +1,6 @@
-function AddItemForm({handleSubmit, weaponList, handleConditionChange, handleWeaponChange, skinList, handleSkinChange}) {
+function AddItemForm({handleWeaponSubmit, weaponList, handleConditionChange, handleWeaponChange, skinList, handleSkinChange}) {
     return (
-        <form onSubmit={handleSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
+        <form onSubmit={handleWeaponSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
             Add Item
             <div className="font-russo text-base grid grid-cols-2">
                 <label htmlFor="weapon-type" className="text-right my-2 pr-2">Weapon Type</label>
