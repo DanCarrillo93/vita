@@ -128,7 +128,16 @@ function Dashboard() {
       newInv.push(item);
     });
 
-    // for (let i = 0; )
+    if (bundleItems.length > 1) {
+      let id = 0;
+      for (let i = 1; i < bundleItems.length; i++) {
+        if (parseFloat(bundleItems[id].price) < parseFloat(bundleItems[i].price)) {
+          id = i;
+        }
+      };
+      const expensive = bundleItems.splice(id, 1);
+      bundleItems.unshift(expensive[0]);
+    };
 
     const items = bundleItems.map(item => {
       return {
@@ -145,7 +154,10 @@ function Dashboard() {
     const bundle = {items, bundle_price: bundlePrice * 100, bundle_type, newInv};
     console.log(bundle);
     const newUser = await weaponAPI.addBundle(bundle);
-    console.log(newUser);
+    // console.log(newUser);
+    setUserInv(newUser.data.inventory);
+    setPriceEstimate(0);
+    setBundlePrice("");
   }
 
   return (
