@@ -40,9 +40,9 @@ function Dashboard() {
     const user = await weaponAPI.fetchUserInventory();
     const items = user.data.inventory.map(item => {return {...item, bundled: false}});
     setUserInv(items);
-    setFormWeapon("");
-    setFormSkin("");
-    setFormCondition("");
+    setFormWeapon("Pick a weapon");
+    setFormSkin("Pick a skin");
+    setFormCondition("Pick a condition");
   }
 
   async function handleConditionChange(e) {
@@ -52,7 +52,6 @@ function Dashboard() {
       setFormCondition("");
       return;
     };
-    console.log(userInv);
     setFormCondition(condition);
   }
 
@@ -128,6 +127,9 @@ function Dashboard() {
       }
       newInv.push(item);
     });
+
+    // for (let i = 0; )
+
     const items = bundleItems.map(item => {
       return {
         _id: item._id,
@@ -147,14 +149,14 @@ function Dashboard() {
   }
 
   return (
-    <div className="container mx-auto font-russo">
+    <div className="mx-auto font-russo">
       <h1 className="text-5xl text-gray-300 flex-root border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
         Hello, {auth.user.username}!
       </h1>
 
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          <AddItemForm handleWeaponSubmit={handleWeaponSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
+          <AddItemForm weapon={formWeapon} skin={formSkin} condition={formCondition} handleWeaponSubmit={handleWeaponSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
           <AddBundleForm handleBundleSubmit={handleBundleSubmit} handlePriceChange={handlePriceChange} bundlePrice={bundlePrice} estimate={priceEstimate} />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
