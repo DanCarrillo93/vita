@@ -5,7 +5,7 @@ const { User, Weapon } = require("../models");
 const itemController = {
   addItem: async function (req, res) {
     try {
-      console.log(req.body);
+      // console.log(req.body);
       const { name } = req.body;
       const weapon = await Weapon.findOne({ name }, { select: "_id" });
       const user = await User.findByIdAndUpdate(

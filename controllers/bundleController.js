@@ -15,18 +15,38 @@ const bundleController = {
         bundle_type: bundle_type,
         owner: owner,
       });
-      console.log(bundle);
+      // console.log(bundle);
       await bundle.save();
-      const user = await User.findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         owner,
         {
           $push: { bundles: { bundle: bundle._id } },
-          inventory: newInv
+          inventory: newInv,
         },
         { new: true }
       );
+      const bundleRes = await Bundle.find()
+        .where("owner")
+        .all([owner])
+        .populate({
+          path: "items.weapon",
+        });
+      console.log(bundleRes[0].items);
+      const userRes = await User.findById(owner)
+        .populate({
+          path: "inventory.weapon",
+        })
+        .populate({
+          path: "bundles.bundle",
+        });
+      // .populate({
+      //   path: "bundles.bundle.items",
+      // })
+      // .populate({
+      //   path: "bundles.bundle.items.weapon",
+      // });
+      return res.json({ userRes, bundleRes });
       // console.log(bundle, user);
-      return res.json(user);
     } catch (error) {
       res.status(400).end();
       console.log(error);

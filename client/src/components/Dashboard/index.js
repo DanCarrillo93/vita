@@ -20,25 +20,26 @@ function Dashboard() {
   const [bundlePrice, setBundlePrice] = useState("");
 
   useEffect(() => {
-    weaponAPI.fetchUserInventory()
-    .then(user => {
-      const items = user.data.inventory.map(item => {
-        return {...item, bundled: false, price: undefined}
+    weaponAPI.fetchUserInventory().then((user) => {
+      const items = user.data.inventory.map((item) => {
+        return { ...item, bundled: false, price: undefined };
       });
       setUserInv(items);
-    })
-  },[]);
+    });
+  }, []);
 
   async function handleWeaponSubmit(e) {
     e.preventDefault();
-    if (formWeapon==="" || formSkin==="" || formCondition==="") {
+    if (formWeapon === "" || formSkin === "" || formCondition === "") {
       console.log("Form incomplete");
       return;
     }
-    const name = { name: `${formWeapon} | ${formSkin} (${formCondition})`};
+    const name = { name: `${formWeapon} | ${formSkin} (${formCondition})` };
     await weaponAPI.addItem(name);
     const user = await weaponAPI.fetchUserInventory();
-    const items = user.data.inventory.map(item => {return {...item, bundled: false}});
+    const items = user.data.inventory.map((item) => {
+      return { ...item, bundled: false };
+    });
     setUserInv(items);
     setFormWeapon("Pick a weapon");
     setFormSkin("Pick a skin");
@@ -51,7 +52,7 @@ function Dashboard() {
     if (condition === "aha") {
       setFormCondition("");
       return;
-    };
+    }
     setFormCondition(condition);
   }
 
@@ -61,7 +62,7 @@ function Dashboard() {
     if (skin === "aha") {
       setFormSkin("");
       return;
-    };
+    }
     setFormSkin(skin);
   }
 
@@ -72,7 +73,7 @@ function Dashboard() {
       setSkinList([]);
       setFormSkin("");
       return;
-    };
+    }
     const skinList = require(`../../data/skins/${weapon}-skinList.json`);
     await setFormWeapon(weapon);
     await setSkinList(skinList);
@@ -89,14 +90,16 @@ function Dashboard() {
           item.bundled = false;
         } else {
           item.bundled = true;
-        };
-      };
+        }
+      }
       return item;
     });
     // console.log(itemIndex);
 
     if (!newInv[itemIndex].price) {
-      const priceInfo = await weaponAPI.fetchWeaponInfo(newInv[itemIndex].weapon.name);
+      const priceInfo = await weaponAPI.fetchWeaponInfo(
+        newInv[itemIndex].weapon.name
+      );
       newInv[itemIndex].price = priceInfo.data.average_price;
     }
     setUserInv(newInv);
@@ -105,11 +108,11 @@ function Dashboard() {
 
   function handleEstimate() {
     let estimate = 0;
-    userInv.forEach(item => {
+    userInv.forEach((item) => {
       if (item.bundled && item.price) {
         estimate = estimate + parseFloat(item.price);
       }
-    })
+    });
     setPriceEstimate(estimate.toFixed(2));
   }
 
@@ -121,7 +124,7 @@ function Dashboard() {
   async function handleBundleSubmit(e) {
     e.preventDefault();
     let newInv = [];
-    const bundleItems = userInv.filter(item => {
+    const bundleItems = userInv.filter((item) => {
       if (item.bundled) {
         return item;
       }
@@ -131,31 +134,38 @@ function Dashboard() {
     if (bundleItems.length > 1) {
       let id = 0;
       for (let i = 1; i < bundleItems.length; i++) {
-        if (parseFloat(bundleItems[id].price) < parseFloat(bundleItems[i].price)) {
+        if (
+          parseFloat(bundleItems[id].price) < parseFloat(bundleItems[i].price)
+        ) {
           id = i;
         }
-      };
+      }
       const expensive = bundleItems.splice(id, 1);
       bundleItems.unshift(expensive[0]);
-    };
+    }
 
-    const items = bundleItems.map(item => {
+    const items = bundleItems.map((item) => {
       return {
         _id: item._id,
-        weapon: item.weapon._id
-      }
+        weapon: item.weapon._id,
+      };
     });
     let bundle_type = [];
-    bundleItems.forEach(item => {
+    bundleItems.forEach((item) => {
       if (!bundle_type.includes(item.weapon.sub_type)) {
         bundle_type.push(item.weapon.sub_type);
       }
     });
-    const bundle = {items, bundle_price: bundlePrice * 100, bundle_type, newInv};
+    const bundle = {
+      items,
+      bundle_price: bundlePrice * 100,
+      bundle_type,
+      newInv,
+    };
     console.log(bundle);
     const newUser = await weaponAPI.addBundle(bundle);
-    // console.log(newUser);
-    setUserInv(newUser.data.inventory);
+    console.log(newUser);
+    setUserInv(newUser.data.userRes.inventory);
     setPriceEstimate(0);
     setBundlePrice("");
   }
@@ -168,16 +178,36 @@ function Dashboard() {
 
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          <AddItemForm weapon={formWeapon} skin={formSkin} condition={formCondition} handleWeaponSubmit={handleWeaponSubmit} weaponList={weaponList} skinList={skinList} handleConditionChange={handleConditionChange} handleSkinChange={handleSkinChange} handleWeaponChange={handleWeaponChange} />
-          <AddBundleForm handleBundleSubmit={handleBundleSubmit} handlePriceChange={handlePriceChange} bundlePrice={bundlePrice} estimate={priceEstimate} />
+          <AddItemForm
+            weapon={formWeapon}
+            skin={formSkin}
+            condition={formCondition}
+            handleWeaponSubmit={handleWeaponSubmit}
+            weaponList={weaponList}
+            skinList={skinList}
+            handleConditionChange={handleConditionChange}
+            handleSkinChange={handleSkinChange}
+            handleWeaponChange={handleWeaponChange}
+          />
+          <AddBundleForm
+            handleBundleSubmit={handleBundleSubmit}
+            handlePriceChange={handlePriceChange}
+            bundlePrice={bundlePrice}
+            estimate={priceEstimate}
+          />
         </div>
         <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
           Inventory
           <div className="grid grid-cols-3">
             {userInv.map((inv, index) => {
-              return(
-                <SimpleCard key={index} inv={inv} page="dashboard" handleBundleChange={handleBundleChange} />
-              )
+              return (
+                <SimpleCard
+                  key={index}
+                  inv={inv}
+                  page="dashboard"
+                  handleBundleChange={handleBundleChange}
+                />
+              );
             })}
           </div>
         </div>
