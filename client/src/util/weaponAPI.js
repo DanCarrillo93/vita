@@ -10,9 +10,11 @@ const weaponAPI = {
     },
 
     fetchWeaponInfo: function(weapon) {
-
         return axios.get(`/api/prices?id=${weapon}`);
     },
+    addBundle: function(bundle) {
+        return axios.post("/api/bundles", bundle);
+    }
 };
 
 export default weaponAPI;

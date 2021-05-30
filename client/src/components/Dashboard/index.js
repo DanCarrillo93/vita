@@ -119,12 +119,14 @@ function Dashboard() {
     setBundlePrice(e.target.value);
   }
 
-  function handleBundleSubmit(e) {
+  async function handleBundleSubmit(e) {
     e.preventDefault();
+    let newInv = [];
     const bundleItems = userInv.filter(item => {
       if (item.bundled) {
         return item;
       }
+      newInv.push(item);
     });
     const items = bundleItems.map(item => {
       return {
@@ -138,8 +140,10 @@ function Dashboard() {
         bundle_type.push(item.weapon.sub_type);
       }
     });
-    const bundle = {items, bundle_price: bundlePrice, bundle_type};
+    const bundle = {items, bundle_price: bundlePrice * 100, bundle_type, newInv};
     console.log(bundle);
+    const newUser = await weaponAPI.addBundle(bundle);
+    console.log(newUser);
   }
 
   return (

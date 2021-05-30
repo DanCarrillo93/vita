@@ -7,8 +7,8 @@ const bundleController = {
   addBundle: async function (req, res) {
     try {
       const owner = req.session.user._id;
-      const { items, bundle_price, bundle_type } = req.body;
-      console.log(items);
+      const { items, bundle_price, bundle_type, newInv } = req.body;
+      // console.log(items);
       const bundle = new Bundle({
         items: items,
         bundle_price: bundle_price,
@@ -21,10 +21,11 @@ const bundleController = {
         owner,
         {
           $push: { bundles: { bundle: bundle._id } },
+          inventory: newInv
         },
         { new: true }
       );
-      console.log(bundle, user);
+      // console.log(bundle, user);
       return res.json(user);
     } catch (error) {
       res.status(400).end();

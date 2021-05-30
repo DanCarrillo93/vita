@@ -4,7 +4,7 @@ function AddBundleForm({estimate, handlePriceChange, handleBundleSubmit, bundleP
             Bundle Items
             <div className="font-russo text-base grid grid-cols-2">
                 <label htmlFor="bundle-price" className="text-right my-2 pr-2">Price ($)</label>
-                <input onChange={handlePriceChange} value={bundlePrice} id="bundle-price" className="text-gray-900 my-2" type="number" placeholder="Bundle Price" />
+                <input onChange={handlePriceChange} value={bundlePrice} id="bundle-price" className="text-gray-900 my-2" type="text" placeholder="Bundle Price" />
             </div>
             <div className="flex flex-row justify-between content-center">
                 <div className="flex flex-col justify-center">
