@@ -53,14 +53,16 @@ const bundleController = {
     }
   },
 
-  //   deleteBundle: async function (req,res) {
-  //       try {
-  //           const id = req.params.id
-  //           const bundle = await Bundle.deleteOne({_id: id})
-  //       } catch (error) {
+  //     deleteBundle: async function (req,res) {
+  //         try {
+  //             const id = req.body
+  //             // const bundle = await Bundle.deleteOne({_id: id});
+  //             const bundle = await Bundle.findOne({_id: id});
+  //           console.log(bundle)
+  //         } catch (error) {
 
-  //       }
-  //   }
+  // }
+  // }
 };
 
 module.exports = bundleController;
