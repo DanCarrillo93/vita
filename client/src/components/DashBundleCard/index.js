@@ -10,17 +10,41 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
           alt="aaa"
         />
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-between">
-          <div className="flex flex-col justify-center">
-            <h6 className="text-sm">This bundle has {items.length} item(s)</h6>
-          </div>
-          <button
-            id={_id}
-            onClick={handleBundleDel}
-            className="text-xs font-sans font-bold border-2 border-green-900 bg-red-700 rounded p-2"
-          >
-            {" "}
-            Delete from bundle
-          </button>
+          {page === "dashboard" && (
+            <>
+              <div className="flex flex-col justify-center">
+                <h6 className="text-sm">
+                  This bundle has {items.length} item(s)
+                </h6>
+              </div>
+              <button
+                id={_id}
+                onClick={handleBundleDel}
+                className="text-xs font-sans font-bold border-2 border-green-900 bg-red-700 rounded p-2"
+              >
+                {" "}
+                Delete from bundle
+              </button>
+            </>
+          )}
+          {page === "home" && (
+            <>
+              <div className="flex flex-col justify-center">
+                <h6 className="text-sm">
+                  This bundle has {items.length} item(s)
+                </h6>
+                <h6 className="text-sm">Bundle Price: ${bundle_price / 100}</h6>
+              </div>
+              <button
+                id={_id}
+                // onClick={handleBundleDel}
+                className="text-xs font-sans font-bold border-2 border-blue-900 bg-blue-700 rounded p-2"
+              >
+                {" "}
+                View Bundle
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
