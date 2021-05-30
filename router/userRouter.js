@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Bundle } = require("../models");
 const { omit } = require("lodash");
 
 const userRouter = require("express").Router();
@@ -72,13 +72,17 @@ userRouter.delete("/logout", async (req, res, next) => {
 
 userRouter.get("/details", async (req, res, next) => {
   try {
+    const owner = req.session.user._id;
     if (!req.session?.user) {
       return res.status(401).json({ message: "Must be logged in." });
     }
-    const user = await User.findById(req.session.user._id).populate({
+    const userRes = await User.findById(req.session.user._id).populate({
       path: "inventory.weapon",
     });
-    res.json(user);
+    const bundleRes = await Bundle.find().where("owner").all([owner]).populate({
+      path: "items.weapon",
+    });
+    res.json({ userRes, bundleRes });
   } catch (error) {
     next(error);
   }
