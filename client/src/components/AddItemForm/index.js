@@ -1,10 +1,10 @@
-function AddItemForm({handleSubmit, weaponList, handleConditionChange, handleWeaponChange, skinList, handleSkinChange}) {
+function AddItemForm({weapon, skin, condition, handleWeaponSubmit, weaponList, handleConditionChange, handleWeaponChange, skinList, handleSkinChange}) {
     return (
-        <form onSubmit={handleSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
+        <form onSubmit={handleWeaponSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
             Add Item
             <div className="font-russo text-base grid grid-cols-2">
                 <label htmlFor="weapon-type" className="text-right my-2 pr-2">Weapon Type</label>
-                <select onChange={handleWeaponChange} id="weapon-type" name="Weapon Type" className="text-gray-900 my-2">
+                <select value={weapon} onChange={handleWeaponChange} id="weapon-type" name="Weapon Type" className="text-gray-900 my-2">
                 <option key="aha" value="aha">Pick a weapon</option>
                     {weaponList.map(weapon => {
                         return (
@@ -13,7 +13,7 @@ function AddItemForm({handleSubmit, weaponList, handleConditionChange, handleWea
                     })}
                 </select>
                 <label htmlFor="skin-type" className="text-right my-2 pr-2">Skin Type</label>
-                <select onChange={handleSkinChange} id="skin-type" name="Skin Type" className="text-gray-900 my-2">
+                <select value={skin} onChange={handleSkinChange} id="skin-type" name="Skin Type" className="text-gray-900 my-2">
                     <option key="aha" value="aha">Pick a skin</option>
                     {skinList.map(skin => {
                         return (
@@ -22,7 +22,7 @@ function AddItemForm({handleSubmit, weaponList, handleConditionChange, handleWea
                     })}
                 </select>
                 <label htmlFor="condition" className="text-right my-2 pr-2">Condition</label>
-                <select onChange={handleConditionChange} id="condition" name="Condition" className="text-gray-900 my-2">
+                <select value={condition} onChange={handleConditionChange} id="condition" name="Condition" className="text-gray-900 my-2">
                     <option key="aha" value="aha">Pick a condition</option>
                     <option value="Factory New">Factory New</option>
                     <option value="Minimal Wear">Minimal Wear</option>
