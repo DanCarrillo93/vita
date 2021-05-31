@@ -1,30 +1,53 @@
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../util/auth";
-import SimpleCard from "../SimpleCard";
+import { useState, useEffect } from "react";
+import DashBundleCard from "../DashBundleCard";
+import weaponAPI from "../../util/weaponAPI";
+
 function HomePage() {
   const history = useHistory();
-  const auth = useAuth();
+
+  const [bundles, setBundles] = useState([]);
+
+  // async function getBundles(filter = "") {
+  async function getBundles() {
+    const fetchedBundles = await weaponAPI.getBundles();
+    // console.log(fetchedBundles);
+    setBundles(fetchedBundles.data.bundleRes);
+    // console.log(bundles);
+  }
+
+  useEffect(() => {
+    getBundles();
+  }, []);
+
+  function handleView(e) {
+    // console.log(e.target.id);
+    window.location = `/listing/${e.target.id}`;
+  }
 
   return (
-    <>
-      <h1>Home Page</h1>
-      {/* hide actions if user is logged in */}
-      {!auth.isLoggedIn() && (
-        <>
-          <button onClick={() => history.push("/login")}>Login</button>
-          <button onClick={() => history.push("/signup")}>Signup</button>
-        </>
-      )}
-      <div className="flex flex-row justify-center">
-        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* <SimpleCard />
-          <SimpleCard />
-          <SimpleCard />
-          <SimpleCard />
-          <SimpleCard /> */}
-        </div>
+    <div className="mx-auto font-russo">
+      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
+        <h1 className="text-5xl text-gray-300 mb-2">Listings</h1>
       </div>
-    </>
+
+      <div className="grid grid-cols-5 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4">
+        {!bundles.length && <h3 className="text-3xl text-gray-300">No listings found!</h3>}
+        {bundles.map((bundle, index) => {
+          return (
+            <DashBundleCard
+              key={index}
+              bundle_price={bundle.bundle_price}
+              items={bundle.items}
+              _id={bundle._id}
+              page="home"
+              handleView={handleView}
+            />
+          )
+        })}
+      </div>
+
+    </div>
   );
 }
 
