@@ -154,14 +154,18 @@ const bundleController = {
         { $addToSet: { inventory: { $each: bundle.items } } },
         { new: true }
       );
-      const seller = await User.findById(sellerId);
+      let seller = await User.findById(sellerId);
       const newBundles = seller.bundles.filter(
         (bundles) => bundles.bundle !== id
       );
-      await User.findByIdAndUpdate(sellerId, {
-        balance: seller.balance + bundle.bundle_price,
-        bundles: newBundles,
-      });
+      seller = await User.findByIdAndUpdate(
+        sellerId,
+        {
+          balance: seller.balance + bundle.bundle_price,
+          bundles: newBundles,
+        },
+        { new: true }
+      );
       buyer = await User.findByIdAndUpdate(
         buyerId,
         {
