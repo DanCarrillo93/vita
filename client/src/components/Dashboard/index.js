@@ -5,7 +5,18 @@ import AddItemForm from "../AddItemForm";
 import AddBundleForm from "../AddBundleForm";
 import { useState, useEffect } from "react";
 import weaponAPI from "../../util/weaponAPI";
+import { ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const weaponList = require("../../data/weapons.json");
+const contextClass = {
+  success: "bg-green-900",
+  error: "bg-red-600",
+  info: "bg-gray-600",
+  warning: "bg-orange-400",
+  default: "bg-indigo-800",
+  dark: "bg-white-600 font-gray-300",
+};
 
 // PrivatePage is an example include to demonstrate a route protected from
 // unauthenticated users. See the routing in App.js.
@@ -59,6 +70,7 @@ function Dashboard() {
     setFormWeapon("Pick a weapon");
     setFormSkin("Pick a skin");
     setFormCondition("Pick a condition");
+    weaponToast(name.name);
   }
 
   async function handleConditionChange(e) {
@@ -96,7 +108,7 @@ function Dashboard() {
 
   async function handleBundleChange(e) {
     const itemId = e.target.id;
-    console.log(itemId);
+    // console.log(itemId);
     let itemIndex;
 
     const newInv = userInv.map((item, index) => {
@@ -191,12 +203,22 @@ function Dashboard() {
     setUserBundle(newUser.data.bundleRes);
     setPriceEstimate(0);
     setBundlePrice("");
+    bundleToast();
   }
 
   async function handleBundleDel(e) {
     e.preventDefault();
     console.log(e.target.id);
   }
+
+  function weaponToast(name) {
+    return toast.success(`Weapon added successfully: ${name}.`);
+  }
+
+  function bundleToast() {
+    return toast.success(`Bundle added successfully.`);
+  }
+
   return (
     <div className="mx-auto font-russo">
       <h1 className="text-5xl text-gray-300 flex-root border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
@@ -257,6 +279,14 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <ToastContainer
+      toastClassName={({ type }) => contextClass[type || "default"] + 
+      " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+      }
+      bodyClassName={() => "text-base font-white font-med block p-3"}
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar />
     </div>
   );
 }

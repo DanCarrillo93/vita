@@ -16,7 +16,8 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
             <>
               <div className="flex flex-col justify-center">
                 <h6 className="text-sm">
-                  {items.length} item(s)<span className={`mx-4 uppercase text-sm bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>
+                  {items.length} item(s) listed for ${bundle_price / 100}
+                  <span className={`mx-4 uppercase text-sm bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>
                 </h6>
               </div>
               <button
