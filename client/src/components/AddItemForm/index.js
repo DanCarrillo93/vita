@@ -5,7 +5,7 @@ function AddItemForm({weapon, skin, condition, handleWeaponSubmit, weaponList, h
             <div className="font-russo text-base grid grid-cols-2">
                 <label htmlFor="weapon-type" className="text-right my-2 pr-2">Weapon Type</label>
                 <select value={weapon} onChange={handleWeaponChange} id="weapon-type" name="Weapon Type" className="text-gray-900 my-2">
-                <option key="aha" value="aha">Pick a weapon</option>
+                <option key="aha" value="Pick a weapon">Pick a weapon</option>
                     {weaponList.map(weapon => {
                         return (
                             <option key={weapon.weapon} value={weapon.weapon}>{weapon.weapon}</option>
@@ -14,7 +14,7 @@ function AddItemForm({weapon, skin, condition, handleWeaponSubmit, weaponList, h
                 </select>
                 <label htmlFor="skin-type" className="text-right my-2 pr-2">Skin Type</label>
                 <select value={skin} onChange={handleSkinChange} id="skin-type" name="Skin Type" className="text-gray-900 my-2">
-                    <option key="aha" value="aha">Pick a skin</option>
+                    <option key="aha" value="Pick a skin">Pick a skin</option>
                     {skinList.map(skin => {
                         return (
                             <option key={skin} value={skin}>{skin}</option>
@@ -23,7 +23,7 @@ function AddItemForm({weapon, skin, condition, handleWeaponSubmit, weaponList, h
                 </select>
                 <label htmlFor="condition" className="text-right my-2 pr-2">Condition</label>
                 <select value={condition} onChange={handleConditionChange} id="condition" name="Condition" className="text-gray-900 my-2">
-                    <option key="aha" value="aha">Pick a condition</option>
+                    <option key="aha" value="Pick a condition">Pick a condition</option>
                     <option value="Factory New">Factory New</option>
                     <option value="Minimal Wear">Minimal Wear</option>
                     <option value="Field-Tested">Field-Tested</option>
