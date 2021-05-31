@@ -3,14 +3,17 @@ import { useState, useEffect } from "react";
 import DashBundleCard from "../DashBundleCard";
 import weaponAPI from "../../util/weaponAPI";
 
+const weaponList = require("../../data/weapons.json");
+
 function HomePage() {
   const history = useHistory();
 
   const [bundles, setBundles] = useState([]);
+  const [filter, setFilter] = useState("");
 
   // async function getBundles(filter = "") {
-  async function getBundles() {
-    const fetchedBundles = await weaponAPI.getBundles();
+  async function getBundles(filter = "") {
+    const fetchedBundles = await weaponAPI.getBundles(filter);
     // console.log(fetchedBundles);
     setBundles(fetchedBundles.data.bundleRes);
     // console.log(bundles);
@@ -20,6 +23,16 @@ function HomePage() {
     getBundles();
   }, []);
 
+  function handleFilter(e) {
+    const bundleFilter = e.target.value;
+    if (bundleFilter === "Pick a weapon") {
+      getBundles();
+    } else {
+      getBundles(bundleFilter);
+    }
+    setFilter(bundleFilter);
+  }
+
   function handleView(e) {
     // console.log(e.target.id);
     window.location = `/listing/${e.target.id}`;
@@ -27,8 +40,18 @@ function HomePage() {
 
   return (
     <div className="mx-auto font-russo">
-      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
-        <h1 className="text-5xl text-gray-300 mb-2">Listings</h1>
+      <div className="border-4 flex flex-row border-gray-300 rounded p-3 mx-1 mt-2">
+        <h1 className="text-5xl text-gray-300 mr-8">Listings</h1>
+        <form className="flex flex-col justify-center text-2xl">
+          <select id="weapon-type" onChange={handleFilter} value={filter}>
+            <option key="aha" value="Pick a weapon">Pick a weapon</option>
+            {weaponList.map(weapon => {
+              return (
+                <option key={weapon.weapon} value={weapon.weapon}>{weapon.weapon}</option>
+              )
+            })}
+          </select>
+        </form>
       </div>
 
       <div className="grid grid-cols-5 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4">

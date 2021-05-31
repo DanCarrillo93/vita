@@ -80,7 +80,7 @@ function Dashboard() {
   async function handleConditionChange(e) {
     e.preventDefault();
     const condition = e.target.value;
-    if (condition === "aha") {
+    if (condition === "Pick a weapon") {
       setFormCondition("");
       return;
     }
@@ -90,7 +90,7 @@ function Dashboard() {
   async function handleSkinChange(e) {
     e.preventDefault();
     const skin = e.target.value;
-    if (skin === "aha") {
+    if (skin === "Pick a skin") {
       setFormSkin("");
       return;
     }
@@ -100,7 +100,7 @@ function Dashboard() {
   async function handleWeaponChange(e) {
     e.preventDefault();
     const weapon = e.target.value;
-    if (weapon === "aha") {
+    if (weapon === "Pick a weapon") {
       setSkinList([]);
       setFormSkin("");
       return;
@@ -243,7 +243,7 @@ function Dashboard() {
 
   return (
     <div className="mx-auto font-russo">
-      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
+      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2">
         <h1 className="text-5xl text-gray-300 mb-2">Hello, {auth.user.username}!</h1>
         <h3 className="text-3xl text-gray-300">
           Your current balance:{" "}

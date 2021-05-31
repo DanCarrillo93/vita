@@ -88,7 +88,7 @@ const bundleController = {
   getBundles: async function (req, res) {
     try {
       const { bundle_type } = req.query;
-      console.log(bundle_type);
+      // console.log(bundle_type);
       let owner = "";
       let bundleRes = [];
       if (!req.session?.user) {
@@ -120,7 +120,7 @@ const bundleController = {
             .limit(50);
         }
       }
-      console.log(owner, bundleRes.length);
+      // console.log(owner, bundleRes.length);
       return res.json({ bundleRes });
     } catch (error) {
       res.status(400).end();
