@@ -7,7 +7,11 @@ const bundleController = {
   addBundle: async function (req, res) {
     try {
       const owner = req.session.user._id;
-      const { items, bundle_price, bundle_type, newInv } = req.body;
+      const { items, bundle_price, bundle_type } = req.body;
+      let { newInv } = req.body;
+      if (!newInv) {
+        newInv = [];
+      }
       // console.log(items);
       const bundle = new Bundle({
         items: items,
@@ -53,14 +57,33 @@ const bundleController = {
     }
   },
 
-  //   deleteBundle: async function (req,res) {
-  //       try {
-  //           const id = req.params.id
-  //           const bundle = await Bundle.deleteOne({_id: id})
-  //       } catch (error) {
-
-  //       }
-  //   }
+  deleteBundle: async function (req, res) {
+    try {
+      const owner = req.session.user._id;
+      const { id } = req.body;
+      let { newBundles } = req.body;
+      if (!newBundles) {
+        newBundles = [];
+      }
+      console.log(req);
+      const bundle = await Bundle.findById(id);
+      console.log(owner);
+      const user = await User.findByIdAndUpdate(
+        owner,
+        {
+          $addToSet: { inventory: { $each: bundle.items } },
+          bundles: newBundles,
+        },
+        { new: true }
+      );
+      await Bundle.deleteOne({ _id: id });
+      console.log(user);
+      return res.json({ user });
+    } catch (error) {
+      res.status(400).end();
+      console.log(error);
+    }
+  },
 };
 
 module.exports = bundleController;
