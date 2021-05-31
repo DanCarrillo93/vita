@@ -1,6 +1,7 @@
+// import { Link } from "react-router-dom";
 const rarityColor = require("../../util/rarityColor");
 
-function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
+function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel, handleView }) {
   const color = rarityColor(items[0].weapon.rarity);
   return (
     <div className="font-russo border border-gray-600 bg-gray-500 rounded max-w-max m-1 col-auto px-1 text-base">
@@ -43,7 +44,7 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel }) {
               <div className="flex flex-row justify-end">
                 <button
                   id={_id}
-                  onClick={handleBundleDel}
+                  onClick={handleView}
                   className="mt-2 text-xs font-sans font-bold border-2 border-blue-900 bg-blue-700 rounded py-2 px-3"
                 >
                   {" "}

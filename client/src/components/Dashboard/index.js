@@ -244,7 +244,7 @@ function Dashboard() {
   return (
     <div className="mx-auto font-russo">
       <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
-        <h1 className="text-5xl text-gray-300">Hello, {auth.user.username}!</h1>
+        <h1 className="text-5xl text-gray-300 mb-2">Hello, {auth.user.username}!</h1>
         <h3 className="text-3xl text-gray-300">
           Your current balance:{" "}
           <span className={`text-${balance >= 0 ? "green" : "red"}-400`}>
@@ -299,7 +299,6 @@ function Dashboard() {
                   handleBundleDel={handleBundleDel}
                   key={index}
                   page="dashboard"
-                  handleBundleChange={handleBundleChange}
                 />
               );
             })}
