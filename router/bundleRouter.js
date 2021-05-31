@@ -4,7 +4,7 @@ const bundleController = require("../controllers/bundleController");
 bundleRouter
   .route("/")
   .post(bundleController.addBundle)
-  .put(bundleController.deleteBundle);
-//   .get(bundleController.getBundles);
+  .put(bundleController.deleteBundle)
+  .get(bundleController.getBundles);
 
 module.exports = bundleRouter;
