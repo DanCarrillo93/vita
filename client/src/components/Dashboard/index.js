@@ -227,7 +227,7 @@ function Dashboard() {
           Hello, {auth.user.username}!
         </h1>
         <h3 className="text-3xl text-gray-300">
-          Your current balance: ${balance}
+          Your current balance: <span className={`text-${ balance>=0 ? "green" : "red" }-600`}>${balance}</span>
         </h3>
       </div>
 
