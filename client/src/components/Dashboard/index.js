@@ -5,7 +5,18 @@ import AddItemForm from "../AddItemForm";
 import AddBundleForm from "../AddBundleForm";
 import { useState, useEffect } from "react";
 import weaponAPI from "../../util/weaponAPI";
+import { ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const weaponList = require("../../data/weapons.json");
+const contextClass = {
+  success: "bg-green-700",
+  error: "bg-red-700",
+  info: "bg-gray-600",
+  warning: "bg-orange-400",
+  default: "bg-indigo-800",
+  dark: "bg-white-600 font-gray-300",
+};
 
 // PrivatePage is an example include to demonstrate a route protected from
 // unauthenticated users. See the routing in App.js.
@@ -16,6 +27,7 @@ function Dashboard() {
   const [formSkin, setFormSkin] = useState("");
   const [formCondition, setFormCondition] = useState("");
   const [priceEstimate, setPriceEstimate] = useState(0);
+  const [balance, setBalance] = useState(0);
   const [skinList, setSkinList] = useState([]);
   const [userInv, setUserInv] = useState([]);
   const [userBundle, setUserBundle] = useState([]);
@@ -28,7 +40,7 @@ function Dashboard() {
       });
       setUserInv(items);
       setUserBundle(user.data.bundleRes);
-      console.log(userBundle);
+      setBalance(auth.user.balance);
     });
   }, []);
 
@@ -38,7 +50,18 @@ function Dashboard() {
       console.log("Form incomplete");
       return;
     }
-    const name = { name: `${formWeapon} | ${formSkin} (${formCondition})` };
+    let nameId = -1;
+    weaponList.forEach((item, index) => {
+      if (item.weapon === formWeapon) {
+        nameId = index;
+      }
+    })
+    // console.log(nameId);
+    let weaponName = formWeapon;
+    if (nameId >= 34) {
+      weaponName = `★ ${formWeapon}`;
+    }
+    const name = { name: `${weaponName} | ${formSkin} (${formCondition})` };
     await weaponAPI.addItem(name);
     const user = await weaponAPI.fetchUserInventory();
     const items = user.data.userRes.inventory.map((item) => {
@@ -48,6 +71,7 @@ function Dashboard() {
     setFormWeapon("Pick a weapon");
     setFormSkin("Pick a skin");
     setFormCondition("Pick a condition");
+    weaponToast(name.name);
   }
 
   async function handleConditionChange(e) {
@@ -85,10 +109,12 @@ function Dashboard() {
 
   async function handleBundleChange(e) {
     const itemId = e.target.id;
+    // console.log(itemId);
     let itemIndex;
 
     const newInv = userInv.map((item, index) => {
-      if (item.weapon._id === itemId) {
+      // console.log(item._id);
+      if (item._id === itemId) {
         itemIndex = index;
         if (item.bundled) {
           item.bundled = false;
@@ -175,20 +201,40 @@ function Dashboard() {
       })
     );
     // setUserBundle(newUser.data.bundleRes.items);
-    console.log(newUser.data.bundleRes);
+    setUserBundle(newUser.data.bundleRes);
     setPriceEstimate(0);
     setBundlePrice("");
+    bundleToast();
   }
 
   async function handleBundleDel(e) {
     e.preventDefault();
     console.log(e.target.id);
+    bundleDeleteToast();
   }
+
+  function weaponToast(name) {
+    return toast.success(`Weapon added successfully: ${name}.`);
+  }
+
+  function bundleToast() {
+    return toast.success(`Bundle added successfully.`);
+  }
+
+  function bundleDeleteToast() {
+    return toast.error(`Bundle deleted successfully.`);
+  }
+
   return (
     <div className="mx-auto font-russo">
-      <h1 className="text-5xl text-gray-300 flex-root border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
-        Hello, {auth.user.username}!
-      </h1>
+      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
+        <h1 className="text-5xl text-gray-300">
+          Hello, {auth.user.username}!
+        </h1>
+        <h3 className="text-3xl text-gray-300">
+          Your current balance: <span className={`text-${ balance>=0 ? "green" : "red" }-400`}>${balance}</span>
+        </h3>
+      </div>
 
       <div className="text-gray-200 flex flex-row mt-1">
         <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
@@ -218,7 +264,6 @@ function Dashboard() {
                 <SimpleCard
                   key={index}
                   inv={inv}
-                  page="dashboard"
                   handleBundleChange={handleBundleChange}
                 />
               );
@@ -244,6 +289,14 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <ToastContainer
+      toastClassName={({ type }) => contextClass[type || "default"] + 
+      " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+      }
+      bodyClassName={() => "text-base font-white font-med block p-3"}
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar />
     </div>
   );
 }

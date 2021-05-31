@@ -31,7 +31,7 @@ const bundleController = {
         .populate({
           path: "items.weapon",
         });
-      console.log(bundleRes[0].items);
+      // console.log(bundleRes[0].items);
       const userRes = await User.findById(owner)
         .populate({
           path: "inventory.weapon",
