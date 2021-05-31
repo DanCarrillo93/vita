@@ -7,4 +7,6 @@ bundleRouter
   .put(bundleController.deleteBundle)
   .get(bundleController.getBundles);
 
+bundleRouter.route("/:id").get(bundleController.getBundle);
+
 module.exports = bundleRouter;

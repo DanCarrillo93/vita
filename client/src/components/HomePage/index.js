@@ -44,32 +44,38 @@ function HomePage() {
         <h1 className="text-5xl text-gray-300 mr-8">Listings</h1>
         <form className="flex flex-col justify-center text-2xl">
           <select id="weapon-type" onChange={handleFilter} value={filter}>
-            <option key="aha" value="Pick a weapon">Pick a weapon</option>
-            {weaponList.map(weapon => {
+            <option key="aha" value="Pick a weapon">
+              Pick a weapon
+            </option>
+            {weaponList.map((weapon) => {
               return (
-                <option key={weapon.weapon} value={weapon.weapon}>{weapon.weapon}</option>
-              )
+                <option key={weapon.weapon} value={weapon.weapon}>
+                  {weapon.weapon}
+                </option>
+              );
             })}
           </select>
         </form>
       </div>
 
       <div className="grid grid-cols-5 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4">
-        {!bundles.length && <h3 className="text-3xl text-gray-300">No listings found!</h3>}
-        {bundles.map((bundle, index) => {
-          return (
-            <DashBundleCard
-              key={index}
-              bundle_price={bundle.bundle_price}
-              items={bundle.items}
-              _id={bundle._id}
-              page="home"
-              handleView={handleView}
-            />
-          )
-        })}
+        {!bundles.length && (
+          <h3 className="text-3xl text-gray-300">No listings found!</h3>
+        )}
+        {bundles.length &&
+          bundles.map((bundle, index) => {
+            return (
+              <DashBundleCard
+                key={index}
+                bundle_price={bundle.bundle_price}
+                items={bundle.items}
+                _id={bundle._id}
+                page="home"
+                handleView={handleView}
+              />
+            );
+          })}
       </div>
-
     </div>
   );
 }

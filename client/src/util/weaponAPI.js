@@ -21,12 +21,16 @@ const weaponAPI = {
     return axios.put("/api/bundles", info);
   },
 
-  getBundles: function(type = undefined) {
+  getBundles: function (type = undefined) {
     if (type) {
-      return axios.get("/api/bundles?bundle_type="+type);
+      return axios.get("/api/bundles?bundle_type=" + type);
     }
     return axios.get("/api/bundles?bundle_type=");
-  }
+  },
+
+  getBundle: function (id) {
+    return axios.get(`/api/bundles/${id}`);
+  },
 };
 
 export default weaponAPI;

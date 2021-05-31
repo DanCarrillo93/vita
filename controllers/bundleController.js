@@ -65,9 +65,9 @@ const bundleController = {
       if (!newBundles) {
         newBundles = [];
       }
-      console.log(req);
+      // console.log(req);
       const bundle = await Bundle.findById(id);
-      console.log(owner);
+      // console.log(owner);
       const user = await User.findByIdAndUpdate(
         owner,
         {
@@ -77,7 +77,7 @@ const bundleController = {
         { new: true }
       );
       await Bundle.deleteOne({ _id: id });
-      console.log(user);
+      // console.log(user);
       return res.json({ user });
     } catch (error) {
       res.status(400).end();
@@ -122,6 +122,21 @@ const bundleController = {
       }
       // console.log(owner, bundleRes.length);
       return res.json({ bundleRes });
+    } catch (error) {
+      res.status(400).end();
+      console.log(error);
+    }
+  },
+
+  getBundle: async function (req, res) {
+    try {
+      const { id } = req.params;
+      console.log(id);
+      const bundleRes = await Bundle.findById(id).populate({
+        path: "items.weapon",
+      });
+      console.log(bundleRes);
+      return res.json(bundleRes);
     } catch (error) {
       res.status(400).end();
       console.log(error);
