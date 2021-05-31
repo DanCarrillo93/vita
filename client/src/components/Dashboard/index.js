@@ -5,7 +5,7 @@ import AddItemForm from "../AddItemForm";
 import AddBundleForm from "../AddBundleForm";
 import { useState, useEffect } from "react";
 import weaponAPI from "../../util/weaponAPI";
-import { ToastContainer, toast} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const weaponList = require("../../data/weapons.json");
@@ -33,7 +33,7 @@ function Dashboard() {
   const [userBundle, setUserBundle] = useState([]);
   const [bundlePrice, setBundlePrice] = useState("");
 
-  useEffect(() => {
+  function getUser() {
     weaponAPI.fetchUserInventory().then((user) => {
       const items = user.data.userRes.inventory.map((item) => {
         return { ...item, bundled: false, price: undefined };
@@ -42,6 +42,9 @@ function Dashboard() {
       setUserBundle(user.data.bundleRes);
       setBalance(auth.user.balance);
     });
+  }
+  useEffect(() => {
+    getUser();
   }, []);
 
   async function handleWeaponSubmit(e) {
@@ -55,7 +58,7 @@ function Dashboard() {
       if (item.weapon === formWeapon) {
         nameId = index;
       }
-    })
+    });
     // console.log(nameId);
     let weaponName = formWeapon;
     if (nameId >= 34) {
@@ -209,7 +212,20 @@ function Dashboard() {
 
   async function handleBundleDel(e) {
     e.preventDefault();
-    console.log(e.target.id);
+    const id = e.target.id;
+    const newBundles = await userBundle
+      .filter((bundle) => {
+        if (bundle._id !== id) {
+          return { bundle: bundle._id };
+        }
+      })
+      .map((bundle) => {
+        return { bundle: bundle._id };
+      });
+    console.log(id, newBundles);
+    const info = { id, newBundles };
+    await weaponAPI.deleteBundle(info);
+    getUser();
     bundleDeleteToast();
   }
 
@@ -228,11 +244,12 @@ function Dashboard() {
   return (
     <div className="mx-auto font-russo">
       <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
-        <h1 className="text-5xl text-gray-300">
-          Hello, {auth.user.username}!
-        </h1>
+        <h1 className="text-5xl text-gray-300">Hello, {auth.user.username}!</h1>
         <h3 className="text-3xl text-gray-300">
-          Your current balance: <span className={`text-${ balance>=0 ? "green" : "red" }-400`}>${balance}</span>
+          Your current balance:{" "}
+          <span className={`text-${balance >= 0 ? "green" : "red"}-400`}>
+            ${balance}
+          </span>
         </h3>
       </div>
 
@@ -290,13 +307,15 @@ function Dashboard() {
         </div>
       </div>
       <ToastContainer
-      toastClassName={({ type }) => contextClass[type || "default"] + 
-      " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-      }
-      bodyClassName={() => "text-base font-white font-med block p-3"}
-      position="bottom-right"
-      autoClose={5000}
-      hideProgressBar />
+        toastClassName={({ type }) =>
+          contextClass[type || "default"] +
+          " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        }
+        bodyClassName={() => "text-base font-white font-med block p-3"}
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+      />
     </div>
   );
 }
