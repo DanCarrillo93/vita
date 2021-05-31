@@ -131,12 +131,47 @@ const bundleController = {
   getBundle: async function (req, res) {
     try {
       const { id } = req.params;
-      console.log(id);
+      // console.log(id);
       const bundleRes = await Bundle.findById(id).populate({
         path: "items.weapon",
       });
       console.log(bundleRes);
       return res.json(bundleRes);
+    } catch (error) {
+      res.status(400).end();
+      console.log(error);
+    }
+  },
+
+  purchaseBundle: async function (req, res) {
+    try {
+      const { id } = req.params;
+      const buyerId = req.session.user._id;
+      const bundle = await Bundle.findById(id);
+      const sellerId = bundle.owner;
+      let buyer = await User.findByIdAndUpdate(
+        buyerId,
+        { $addToSet: { inventory: { $each: bundle.items } } },
+        { new: true }
+      );
+      const seller = await User.findById(sellerId);
+      const newBundles = seller.bundles.filter(
+        (bundles) => bundles.bundle !== id
+      );
+      await User.findByIdAndUpdate(sellerId, {
+        balance: seller.balance + bundle.bundle_price,
+        bundles: newBundles,
+      });
+      buyer = await User.findByIdAndUpdate(
+        buyerId,
+        {
+          balance: buyer.balance - bundle.bundle_price,
+        },
+        { new: true }
+      );
+      await Bundle.deleteOne({ _id: id });
+      console.log(buyer, seller);
+      return res.json(buyer);
     } catch (error) {
       res.status(400).end();
       console.log(error);
