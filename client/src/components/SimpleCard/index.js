@@ -1,6 +1,6 @@
 const rarityColor = require("../../util/rarityColor");
 
-function SimpleCard({ inv, page, handleBundleChange }) {
+function SimpleCard({ inv, handleBundleChange }) {
   const color = rarityColor(inv.weapon.rarity);
   // console.log(color);
   return (
@@ -13,7 +13,6 @@ function SimpleCard({ inv, page, handleBundleChange }) {
           alt="aaa"
         />
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-end">
-          <div className="w-auto">
             {color === "consumer"
             ? <h6 className={`text-gray-700 uppercase text-xs bg-${color} py-1 px-4 rounded-full`}>
                 {inv.weapon.rarity}
@@ -21,14 +20,13 @@ function SimpleCard({ inv, page, handleBundleChange }) {
             : <h6 className={`uppercase text-xs bg-${color} py-1 px-4 rounded-full`}>
                 {inv.weapon.rarity}
               </h6>}
-          </div>
         </div>
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-end">
         {!inv.bundled && (
             <button
               onClick={handleBundleChange}
               id={inv._id}
-              className="text-xs font-sans font-bold border-2 border-green-900 bg-green-700 rounded p-1"
+              className="text-xs font-sans font-bold border-2 border-green-900 bg-green-700 rounded py-2 px-3"
             >
               Add to bundle
             </button>
@@ -37,7 +35,7 @@ function SimpleCard({ inv, page, handleBundleChange }) {
             <button
               onClick={handleBundleChange}
               id={inv._id}
-              className="text-xs font-sans font-bold border-2 border-red-900 bg-red-700 rounded p-1"
+              className="text-xs font-sans font-bold border-2 border-red-900 bg-red-700 rounded py-2 px-3"
             >
               Remove from bundle
             </button>

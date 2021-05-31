@@ -10,8 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const weaponList = require("../../data/weapons.json");
 const contextClass = {
-  success: "bg-green-900",
-  error: "bg-red-600",
+  success: "bg-green-700",
+  error: "bg-red-700",
   info: "bg-gray-600",
   warning: "bg-orange-400",
   default: "bg-indigo-800",
@@ -210,6 +210,7 @@ function Dashboard() {
   async function handleBundleDel(e) {
     e.preventDefault();
     console.log(e.target.id);
+    bundleDeleteToast();
   }
 
   function weaponToast(name) {
@@ -220,6 +221,10 @@ function Dashboard() {
     return toast.success(`Bundle added successfully.`);
   }
 
+  function bundleDeleteToast() {
+    return toast.error(`Bundle deleted successfully.`);
+  }
+
   return (
     <div className="mx-auto font-russo">
       <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2 pb-1">
@@ -227,7 +232,7 @@ function Dashboard() {
           Hello, {auth.user.username}!
         </h1>
         <h3 className="text-3xl text-gray-300">
-          Your current balance: <span className={`text-${ balance>=0 ? "green" : "red" }-600`}>${balance}</span>
+          Your current balance: <span className={`text-${ balance>=0 ? "green" : "red" }-400`}>${balance}</span>
         </h3>
       </div>
 
@@ -259,7 +264,6 @@ function Dashboard() {
                 <SimpleCard
                   key={index}
                   inv={inv}
-                  page="dashboard"
                   handleBundleChange={handleBundleChange}
                 />
               );
