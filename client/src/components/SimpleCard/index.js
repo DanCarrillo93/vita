@@ -9,7 +9,7 @@ function SimpleCard({ inv, handleBundleChange }) {
         <h6 className="mb-2">{inv.weapon.name}</h6>
         <img
           src={inv.weapon.url}
-          className={`rounded bg-gray-800 p-3 border-8 border-${color}`}
+          className={`rounded bg-gray-800 p-3 border-4 border-${color}`}
           alt="aaa"
         />
         <div className="text-xs font-sans font-bold mt-2 flex flex-row justify-end">

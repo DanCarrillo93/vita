@@ -254,7 +254,7 @@ function Dashboard() {
       </div>
 
       <div className="text-gray-200 flex flex-row mt-1">
-        <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
+        <div className="w-1/6 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
           <AddItemForm
             weapon={formWeapon}
             skin={formSkin}
@@ -287,9 +287,9 @@ function Dashboard() {
             })}
           </div>
         </div>
-        <div className="w-1/4 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
+        <div className="w-1/3 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
           Bundles
-          <div className="grid grid-cols-1">
+          <div className="grid grid-cols-2">
             {userBundle.map((bundle, index) => {
               return (
                 <DashBundleCard

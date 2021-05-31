@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import SignupPage from "./components/SignupPage";
 import PrivateRoute from "./components/PrivateRoute";
+import ListingPage from "./components/ListingPage";
 
 function App() {
   return (
@@ -16,13 +17,16 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginPage />
           </Route>
-          <PrivateRoute path="/dashboard">
+          <Route path="/listing/:id">
+            <ListingPage />
+          </Route>
+          <PrivateRoute exact path="/dashboard">
             <Dashboard />
           </PrivateRoute>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupPage />
           </Route>
         </Switch>
