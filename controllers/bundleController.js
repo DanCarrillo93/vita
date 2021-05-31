@@ -84,6 +84,26 @@ const bundleController = {
       console.log(error);
     }
   },
+
+  getBundles: async function (req, res) {
+    try {
+      let owner = "";
+      let bundleRes = [];
+      if (!req.session?.user) {
+        bundleRes = await Bundle.find({}).populate({ path: "items.weapon" });
+      } else {
+        owner = req.session.user._id;
+        bundleRes = await Bundle.find({ owner: { $ne: owner } }).populate({
+          path: "items.weapon",
+        });
+      }
+      console.log(owner, bundleRes.length);
+      return res.json({ bundleRes });
+    } catch (error) {
+      res.status(400).end();
+      console.log(error);
+    }
+  },
 };
 
 module.exports = bundleController;
