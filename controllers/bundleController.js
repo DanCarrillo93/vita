@@ -175,7 +175,7 @@ const bundleController = {
       );
       await Bundle.deleteOne({ _id: id });
       console.log(buyer, seller);
-      return res.json(buyer);
+      return res.json(seller.steam);
     } catch (error) {
       res.status(400).end();
       console.log(error);
