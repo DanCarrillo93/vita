@@ -9,8 +9,9 @@ const weaponAPI = {
     return axios.get("/api/users/details");
   },
 
-  fetchWeaponInfo: function (weapon) {
-    return axios.get(`/api/prices?id=${weapon}`);
+  fetchWeaponInfo: async function (weapon) {
+    const priceRes = await axios.get(`https://csgobackpack.net/api/GetItemPrice/?id=${weapon}&time=30`);
+    return priceRes;
   },
 
   addBundle: function (bundle) {
