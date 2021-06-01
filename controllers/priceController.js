@@ -12,8 +12,7 @@ const priceController = {
       }
       console.log(query);
       const priceRes = await axios.get(
-        // `https://csgobackpack.net/api/GetItemPrice/?id=${query}&time=30`
-        "https://csgobackpack.net/api/GetItemPrice/?id=" + query
+        `https://csgobackpack.net/api/GetItemPrice/?id=${query}&time=30/`
       );
       console.log(priceRes);
       return res.json(priceRes.data);
