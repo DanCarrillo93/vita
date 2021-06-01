@@ -31,6 +31,9 @@ const weaponAPI = {
   getBundle: function (id) {
     return axios.get(`/api/bundles/${id}`);
   },
+  buyBundle: function (id) {
+    return axios.put(`/api/bundles/${id}`);
+  },
 };
 
 export default weaponAPI;

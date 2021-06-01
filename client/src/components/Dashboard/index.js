@@ -41,7 +41,7 @@ function Dashboard() {
       });
       setUserInv(items);
       setUserBundle(user.data.bundleRes);
-      setBalance(auth.user.balance);
+      setBalance(user.data.userRes.balance / 100);
     });
   }
   useEffect(() => {
@@ -128,8 +128,8 @@ function Dashboard() {
       }
       return item;
     });
-    
-    const bundledItems = newInv.filter(item => {
+
+    const bundledItems = newInv.filter((item) => {
       if (item.bundled === true) {
         return item;
       }
@@ -139,7 +139,7 @@ function Dashboard() {
       setBundleButton(false);
     } else {
       setBundleButton(true);
-    };
+    }
 
     if (!newInv[itemIndex].price) {
       const priceInfo = await weaponAPI.fetchWeaponInfo(
@@ -260,7 +260,9 @@ function Dashboard() {
   return (
     <div className="mx-auto font-russo">
       <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2">
-        <h1 className="text-5xl text-gray-300 mb-2">Hello, {auth.user.username}!</h1>
+        <h1 className="text-5xl text-gray-300 mb-2">
+          Hello, {auth.user.username}!
+        </h1>
         <h3 className="text-3xl text-gray-300">
           Your current balance:{" "}
           <span className={`text-${balance >= 0 ? "green" : "red"}-400`}>

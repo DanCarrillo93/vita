@@ -14,20 +14,6 @@ const contextClass = {
   dark: "bg-white-600 font-gray-300",
 };
 
-function handlePurchaseSubmit(e) {
-  e.preventDefault();
-  purchaseToast();
-  lowIncomeToast();
-}
-
-function purchaseToast() {
-  return toast.success(`Bundle bought successfully.`);
-}
-
-function lowIncomeToast() {
-  return toast.error(`Insufficient funds to purchase bundle.`);
-}
-
 function ListingPage() {
   const [items, setItems] = useState([]);
   const [bundlePrice, setBundlePrice] = useState("");
@@ -76,6 +62,19 @@ function ListingPage() {
     setItems(priceInfo);
   }
 
+  async function handlePurchaseSubmit(e) {
+    e.preventDefault();
+    await weaponAPI.buyBundle(id);
+    purchaseToast();
+    setTimeout(function () {
+      window.location = "/dashboard";
+    }, 5000);
+  }
+
+  function purchaseToast() {
+    return toast.success(`Bundle bought successfully.`);
+  }
+
   useEffect(() => {
     getBundle();
   }, []);
@@ -98,8 +97,8 @@ function ListingPage() {
         </button>
       </form>
       <div className="grid grid-cols-3 my-1">
-        {items.map((item) => {
-          return <DetailedCard item={item} />;
+        {items.map((item, index) => {
+          return <DetailedCard item={item} key={index} />;
         })}
       </div>
       <form className="flex flex-row justify-end text-gray-200 text-2xl">
@@ -110,6 +109,7 @@ function ListingPage() {
         </div>
         <button
           type="submit"
+          onClick={handlePurchaseSubmit}
           className={`mx-3 py-3 px-4 font-sans font-bold border-2 border-${color}-900 bg-${color}-700 rounded`}
           disabled={!auth.isLoggedIn()}
         >
