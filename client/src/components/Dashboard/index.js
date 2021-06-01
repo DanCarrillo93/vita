@@ -259,7 +259,7 @@ function Dashboard() {
 
   return (
     <div className="mx-auto font-russo">
-      <div className="border-4 border-gray-300 rounded p-3 mx-1 mt-2">
+      <div className="border-4 border-gray-300 rounded p-3 mx-3 mt-2">
         <h1 className="text-5xl text-gray-300 mb-2">
           Hello, {auth.user.username}!
         </h1>
@@ -271,56 +271,62 @@ function Dashboard() {
         </h3>
       </div>
 
-      <div className="text-gray-200 flex flex-row mt-1">
-        <div className="w-1/6 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          <AddItemForm
-            weapon={formWeapon}
-            skin={formSkin}
-            condition={formCondition}
-            handleWeaponSubmit={handleWeaponSubmit}
-            weaponList={weaponList}
-            skinList={skinList}
-            handleConditionChange={handleConditionChange}
-            handleSkinChange={handleSkinChange}
-            handleWeaponChange={handleWeaponChange}
-          />
-          <AddBundleForm
-            handleBundleSubmit={handleBundleSubmit}
-            handlePriceChange={handlePriceChange}
-            bundlePrice={bundlePrice}
-            disabled={bundleButton || !bundlePrice}
-            estimate={priceEstimate}
-          />
-        </div>
-        <div className="w-1/2 border-4 border-gray-300 rounded p-2 mx-1 my-2 gap-4 text-3xl">
-          Inventory
-          <div className="grid grid-cols-3">
-            {userInv.map((inv, index) => {
-              return (
-                <SimpleCard
-                  key={index}
-                  inv={inv}
-                  handleBundleChange={handleBundleChange}
-                />
-              );
-            })}
+      <div className="text-gray-200 flex flex-col lg:flex-row mt-1 p-2">
+        <div className="px-1 lg:w-1/3 xl:w-1/5 2xl:w-1/6">
+          <div className="w-full border-4 bg-gray-300 border-gray-300 grid grid-cols-2 lg:grid-cols-1 rounded text-3xl mb-2 ">
+            <AddItemForm
+              weapon={formWeapon}
+              skin={formSkin}
+              condition={formCondition}
+              handleWeaponSubmit={handleWeaponSubmit}
+              weaponList={weaponList}
+              skinList={skinList}
+              handleConditionChange={handleConditionChange}
+              handleSkinChange={handleSkinChange}
+              handleWeaponChange={handleWeaponChange}
+            />
+            <AddBundleForm
+              handleBundleSubmit={handleBundleSubmit}
+              handlePriceChange={handlePriceChange}
+              bundlePrice={bundlePrice}
+              disabled={bundleButton || !bundlePrice}
+              estimate={priceEstimate}
+            />
           </div>
         </div>
-        <div className="w-1/3 border-4 border-gray-300 rounded p-2 mx-1 my-2 text-3xl">
-          Bundles
-          <div className="grid grid-cols-2">
-            {userBundle.map((bundle, index) => {
-              return (
-                <DashBundleCard
-                  bundle_price={bundle.bundle_price}
-                  items={bundle.items}
-                  _id={bundle._id}
-                  handleBundleDel={handleBundleDel}
-                  key={index}
-                  page="dashboard"
-                />
-              );
-            })}
+        <div className="px-1 lg:w-1/3 xl:w-2/5 2xl:w-1/2">
+          <div className="w-full border-4 border-gray-300 rounded p-2 gap-4 mb-2 text-3xl">
+            Inventory
+            <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 justify-items-center">
+              {userInv.map((inv, index) => {
+                return (
+                  <SimpleCard
+                    key={index}
+                    inv={inv}
+                    handleBundleChange={handleBundleChange}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className="px-1 lg:w-1/3 xl:w-2/5 2xl:w-1/3">
+          <div className="w-full border-4 border-gray-300 rounded p-2 text-3xl">
+            Bundles
+            <div className="grid grid-cols-1 xl:grid-cols-2 justify-items-center">
+              {userBundle.map((bundle, index) => {
+                return (
+                  <DashBundleCard
+                    bundle_price={bundle.bundle_price}
+                    items={bundle.items}
+                    _id={bundle._id}
+                    handleBundleDel={handleBundleDel}
+                    key={index}
+                    page="dashboard"
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
