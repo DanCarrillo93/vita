@@ -1,8 +1,32 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../util/auth";
+import { ToastContainer, toast } from "react-toastify";
 import weaponAPI from "../../util/weaponAPI";
 import DetailedCard from "../DetailedCard";
+
+const contextClass = {
+  success: "bg-green-700",
+  error: "bg-red-700",
+  info: "bg-gray-600",
+  warning: "bg-orange-400",
+  default: "bg-indigo-800",
+  dark: "bg-white-600 font-gray-300",
+};
+
+function handlePurchaseSubmit(e) {
+  e.preventDefault();
+  purchaseToast();
+  lowIncomeToast();
+}
+
+function purchaseToast() {
+  return toast.success(`Bundle bought successfully.`);
+}
+
+function lowIncomeToast() {
+  return toast.error(`Insufficient funds to purchase bundle.`);
+}
 
 function ListingPage() {
   const [items, setItems] = useState([]);
@@ -18,30 +42,30 @@ function ListingPage() {
   }
 
   async function fetchPrice(items) {
-      let responses = [];
-      let promises = [];
-      let result = [];
-      for (let i = 0; i < items.length; i++) {
-          promises.push(
-              weaponAPI.fetchWeaponInfo(items[i].weapon.name).then(response => {
-                  responses.push({...response.data, id: items[i]._id})
-              })
-          )
-      }
-      const prices = Promise.all(promises).then(() => {
-        responses.forEach(item => {
-            result.push({
-                price: item,
-                items: items.filter(entry => {
-                    if (item.id === entry._id) {
-                        return entry;
-                    }
-                }),
-            })
+    let responses = [];
+    let promises = [];
+    let result = [];
+    for (let i = 0; i < items.length; i++) {
+      promises.push(
+        weaponAPI.fetchWeaponInfo(items[i].weapon.name).then((response) => {
+          responses.push({ ...response.data, id: items[i]._id });
+        })
+      );
+    }
+    const prices = Promise.all(promises).then(() => {
+      responses.forEach((item) => {
+        result.push({
+          price: item,
+          items: items.filter((entry) => {
+            if (item.id === entry._id) {
+              return entry;
+            }
+          }),
         });
-        return(result);
       });
-      return prices;
+      return result;
+    });
+    return prices;
   }
 
   async function getBundle() {
@@ -60,10 +84,13 @@ function ListingPage() {
     <div className="flex flex-col my-2">
       <form className="flex flex-row justify-end text-gray-200 text-2xl">
         <div className="flex flex-col justify-center">
-          <h6>{items.length} items listed for ${bundlePrice / 100}</h6>
+          <h6>
+            {items.length} items listed for ${bundlePrice / 100}
+          </h6>
         </div>
         <button
           type="submit"
+          onClick={handlePurchaseSubmit}
           className={`mx-3 py-3 px-4 font-sans font-bold border-2 border-${color}-900 bg-${color}-700 rounded`}
           disabled={!auth.isLoggedIn()}
         >
@@ -71,15 +98,15 @@ function ListingPage() {
         </button>
       </form>
       <div className="grid grid-cols-3 my-1">
-        {items.map(item => {
-            return (
-            <DetailedCard item={item} />
-            )
+        {items.map((item) => {
+          return <DetailedCard item={item} />;
         })}
       </div>
       <form className="flex flex-row justify-end text-gray-200 text-2xl">
         <div className="flex flex-col justify-center">
-          <h6>{items.length} items listed for ${bundlePrice / 100}</h6>
+          <h6>
+            {items.length} items listed for ${bundlePrice / 100}
+          </h6>
         </div>
         <button
           type="submit"
@@ -89,6 +116,16 @@ function ListingPage() {
           {auth.isLoggedIn() ? "Buy bundle" : "Log in to buy"}
         </button>
       </form>
+      <ToastContainer
+        toastClassName={({ type }) =>
+          contextClass[type || "default"] +
+          " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        }
+        bodyClassName={() => "text-base font-white font-med block p-3"}
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+      />
     </div>
   );
 }
