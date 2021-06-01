@@ -142,6 +142,45 @@ const bundleController = {
       console.log(error);
     }
   },
+
+  purchaseBundle: async function (req, res) {
+    try {
+      const { id } = req.params;
+      const buyerId = req.session.user._id;
+      const bundle = await Bundle.findById(id);
+      const sellerId = bundle.owner;
+      let buyer = await User.findByIdAndUpdate(
+        buyerId,
+        { $addToSet: { inventory: { $each: bundle.items } } },
+        { new: true }
+      );
+      let seller = await User.findById(sellerId);
+      const newBundles = seller.bundles.filter(
+        (bundles) => bundles.bundle !== id
+      );
+      seller = await User.findByIdAndUpdate(
+        sellerId,
+        {
+          balance: seller.balance + bundle.bundle_price,
+          bundles: newBundles,
+        },
+        { new: true }
+      );
+      buyer = await User.findByIdAndUpdate(
+        buyerId,
+        {
+          balance: buyer.balance - bundle.bundle_price,
+        },
+        { new: true }
+      );
+      await Bundle.deleteOne({ _id: id });
+      console.log(buyer, seller);
+      return res.json(seller.steam);
+    } catch (error) {
+      res.status(400).end();
+      console.log(error);
+    }
+  },
 };
 
 module.exports = bundleController;

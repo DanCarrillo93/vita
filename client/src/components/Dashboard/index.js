@@ -32,6 +32,7 @@ function Dashboard() {
   const [userInv, setUserInv] = useState([]);
   const [userBundle, setUserBundle] = useState([]);
   const [bundlePrice, setBundlePrice] = useState("");
+  const [bundleButton, setBundleButton] = useState(true);
 
   function getUser() {
     weaponAPI.fetchUserInventory().then((user) => {
@@ -127,7 +128,18 @@ function Dashboard() {
       }
       return item;
     });
-    // console.log(itemIndex);
+    
+    const bundledItems = newInv.filter(item => {
+      if (item.bundled === true) {
+        return item;
+      }
+    });
+
+    if (bundledItems.length) {
+      setBundleButton(false);
+    } else {
+      setBundleButton(true);
+    };
 
     if (!newInv[itemIndex].price) {
       const priceInfo = await weaponAPI.fetchWeaponInfo(
@@ -163,6 +175,10 @@ function Dashboard() {
       }
       newInv.push(item);
     });
+
+    // if (!bundleItems || !bundlePrice) {
+    //   return;
+    // }
 
     if (bundleItems.length > 1) {
       let id = 0;
@@ -270,6 +286,7 @@ function Dashboard() {
             handleBundleSubmit={handleBundleSubmit}
             handlePriceChange={handlePriceChange}
             bundlePrice={bundlePrice}
+            disabled={bundleButton || !bundlePrice}
             estimate={priceEstimate}
           />
         </div>
