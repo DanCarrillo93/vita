@@ -131,11 +131,11 @@ const bundleController = {
   getBundle: async function (req, res) {
     try {
       const { id } = req.params;
-      console.log(id);
+      // console.log(id);
       const bundleRes = await Bundle.findById(id).populate({
         path: "items.weapon",
       });
-      console.log(bundleRes);
+      // console.log(bundleRes);
       return res.json(bundleRes);
     } catch (error) {
       res.status(400).end();

@@ -19,7 +19,10 @@ function DashBundleCard({ bundle_price, items, page, _id, handleBundleDel, handl
                 <h6 className="text-sm">
                   {items.length} item{items.length > 1 && "s"} listed for ${bundle_price / 100}
                 </h6>
-                <span className={`text-xs uppercase bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>
+                {color === "consumer"
+                ? <span className={`text-gray-700 text-xs uppercase bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>
+                : <span className={`text-xs uppercase bg-${color} py-1 px-4 rounded-full`}>{items[0].weapon.rarity}</span>}
+                
               </div>
               <div className="flex flex-row justify-end">
                 <button
