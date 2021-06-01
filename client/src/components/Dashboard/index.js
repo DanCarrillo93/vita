@@ -145,11 +145,10 @@ function Dashboard() {
       const priceInfo = await weaponAPI.fetchWeaponInfo(
         newInv[itemIndex].weapon.name
       );
-      console.log(priceInfo);
-      // newInv[itemIndex].price = priceInfo.data.average_price;
+      newInv[itemIndex].price = priceInfo.data.average_price;
     }
-    // setUserInv(newInv);
-    // handleEstimate();
+    setUserInv(newInv);
+    handleEstimate();
   }
 
   function handleEstimate() {
