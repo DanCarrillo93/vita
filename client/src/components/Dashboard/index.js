@@ -33,6 +33,7 @@ function Dashboard() {
   const [userBundle, setUserBundle] = useState([]);
   const [bundlePrice, setBundlePrice] = useState("");
   const [bundleButton, setBundleButton] = useState(true);
+  const [itemButton, setItemButton] = useState(true);
 
   function getUser() {
     weaponAPI.fetchUserInventory().then((user) => {
@@ -75,27 +76,36 @@ function Dashboard() {
     setFormWeapon("Pick a weapon");
     setFormSkin("Pick a skin");
     setFormCondition("Pick a condition");
+    setItemButton(true);
     weaponToast(name.name);
   }
 
   async function handleConditionChange(e) {
     e.preventDefault();
     const condition = e.target.value;
-    if (condition === "Pick a weapon") {
+    if (condition === "Pick a condition") {
       setFormCondition("");
+      setItemButton(true);
       return;
     }
-    setFormCondition(condition);
+    await setFormCondition(condition);
+    if (formSkin) {
+      setItemButton(false);
+    }
   }
 
   async function handleSkinChange(e) {
     e.preventDefault();
     const skin = e.target.value;
-    if (skin === "Pick a skin") {
+    if (skin === "Pick a skin" || skin === "") {
       setFormSkin("");
+      setItemButton(true);
       return;
     }
-    setFormSkin(skin);
+    await setFormSkin(skin);
+    if (formCondition && formCondition !== "Pick a condition") {
+      setItemButton(false);
+    }
   }
 
   async function handleWeaponChange(e) {
@@ -104,11 +114,14 @@ function Dashboard() {
     if (weapon === "Pick a weapon") {
       setSkinList([]);
       setFormSkin("");
+      setFormWeapon("");
+      setItemButton(true);
       return;
     }
     const skinList = require(`../../data/skins/${weapon}-skinList.json`);
     await setFormWeapon(weapon);
     await setSkinList(skinList);
+    setItemButton(true);
   }
 
   async function handleBundleChange(e) {
@@ -284,6 +297,7 @@ function Dashboard() {
               handleConditionChange={handleConditionChange}
               handleSkinChange={handleSkinChange}
               handleWeaponChange={handleWeaponChange}
+              disabled={itemButton}
             />
             <AddBundleForm
               handleBundleSubmit={handleBundleSubmit}

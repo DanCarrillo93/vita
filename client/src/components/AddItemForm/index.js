@@ -8,7 +8,14 @@ function AddItemForm({
   handleWeaponChange,
   skinList,
   handleSkinChange,
+  disabled,
 }) {
+  let color;
+  if (disabled) {
+    color = "gray";
+  } else {
+    color = "green";
+  }
   return (
     <form
       onSubmit={handleWeaponSubmit}
@@ -42,6 +49,7 @@ function AddItemForm({
           id="skin-type"
           name="Skin Type"
           className="text-gray-900 my-2"
+          disabled={!weapon}
         >
           <option key="aha" value="Pick a skin">
             Pick a skin
@@ -75,7 +83,8 @@ function AddItemForm({
       <div className="flex flex-row justify-end">
         <button
           type="submit"
-          className="text-sm py-2 px-3 font-sans font-bold border-2 border-green-900 bg-green-700 rounded"
+          className={`text-sm py-2 px-3 font-sans font-bold border-2 border-${color}-900 bg-${color}-700 rounded mt-1`}
+          disabled={disabled}
         >
           Add an item
         </button>
