@@ -161,7 +161,7 @@ const bundleController = {
       seller = await User.findByIdAndUpdate(
         sellerId,
         {
-          balance: seller.balance + bundle.bundle_price,
+          balance: parseInt(seller.balance) + parseInt(bundle.bundle_price),
           bundles: newBundles,
         },
         { new: true }
