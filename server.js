@@ -8,6 +8,13 @@ const checkEnv = require("./config/checkEnv");
 
 checkEnv();
 
+const proxy = require('http-proxy-middleware');
+
+module.exports = function(app) {
+    // add other server routes to path array
+    app.use(proxy([ '/' ], { target: 'http://localhost:5000' }));
+};
+
 const PORT = process.env.PORT || 3001;
 
 (async () => {
