@@ -64,15 +64,18 @@ function ListingPage() {
 
   async function handlePurchaseSubmit(e) {
     e.preventDefault();
-    await weaponAPI.buyBundle(id);
-    purchaseToast();
+    const sellerSteam = await weaponAPI.buyBundle(id);
+    console.log(sellerSteam.data);
+    purchaseToast(sellerSteam.data);
     setTimeout(function () {
       window.location = "/dashboard";
     }, 5000);
   }
 
-  function purchaseToast() {
-    return toast.success(`Bundle bought successfully.`);
+  function purchaseToast(id) {
+    return toast.success(
+      `Bundle bought successfully. Seller's Steam ID = ${id}`
+    );
   }
 
   useEffect(() => {
