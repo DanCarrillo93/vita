@@ -11,7 +11,7 @@ const priceController = {
         query = "%E2%98%85%20" + query.substring(2);
       }
       // console.log(query);
-      const priceRes = await axios.get(`https://csgobackpack.net/api/GetItemPrice/?id=${query}&time=30`);
+      const priceRes = await axios.get(`https://csgobackpack.net/api/GetItemPrice/?id=${query}&time=30/`);
       return res.json(priceRes.data);
     } catch (error) {
       res.status(400).end();
