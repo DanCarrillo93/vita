@@ -1,55 +1,50 @@
-# MERN Auth Boilerplate
+# VITA (Virtual Item Trading App)
 
-This setup allows for a MERN app which can be easily deployed to Heroku.
+## Description
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+Every good README has a description of what goal the project accomplishes. The following section describes what this project does:
 
-## Starting the app locally
+    This app allows a user to find other gamers who are looking to buy and sell their Counter Strike weapon skins. Seeing as how Steam takes a large percentage of all skins sold on their website, its only fair that some would want to circumvent this cut into their profits, especially if their items are totalling into several hundreds of dollars or more.
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+## Table of Contents
 
-```
-npm install
-```
+[Installation](#install) | [Usage](#usage) | [Contribute](#contribute)
 
-This should install node modules within the server and the client folder.
+## Install
 
-You will need to create a `.env` file in the root folder with the following environmental variable definitions:
+Sometimes the steps to get a project working can be confusing so it is important to give instructions on how to install your project. The following section describes this process:
 
-```sh
-SESSION_SECRET=
-MONGODB_URI=mongodb://localhost/{database_name}
-```
+    After cloning this project, you can run "npm i" to download all of the required dependencies. Next, running "node seeder/seed.js" to seed the database with the API data.
 
-After both installations are complete and the `.env` file has been configured, run the following command in your terminal:
+## Usage
 
-```
-npm start
-```
+Since there could be several ways to input information into a project, it is important to state how it should be used. The following section describes the functionality of each page:
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+### Login / Sign-up Pages
 
-## Deployment (Heroku)
+- Create a new profile with username, email, password, and steam ID
+- Validation on login page for profiles created on sign-up page
 
-1. Create your Heroku app.
+### Home Page
 
-2. Create a database on MongoDB Atlas or another MongoDB cloud provider.
+- View bundles from other users
+- Bundles have information on amount of items in the bundle, the price of the bundle, and a link to a page to view the bundle in detail.
 
-3. Add `MONGODB_URI` and `SESSION_SECRET` along with any other environmental variables required by your app
-   to the Heroku config.
+### Listings Page
 
-4. Deploy the app by linking the GitHub repo to your Heroku app or running `git push heroku main`.
+- After clicking on view bundle from the homepage, you will be brought to a page with information on every item in the bundle
+- Each individual item has information on average price, lowest price, and quantity traded in the last 30 days
+- Clicking on buy bundle will put the skins into your inventory and reduce your balance by how much the bundle cost
+- After a few seconds, you will be redirected to the dashboard page
 
-## Sessions and Authentication
+### Dashboard Page
 
-`express-session` is used to create sessions. Configure the middleware and cookies by editing `config/session.js`. Routes for handling user signup, authentication, and logout have been included in `router/userRouter.js`.
+- On the dashboard, you can add items into your inventory by setting a weapon type, skin name, and condition
+- When you have skins in your inventory, you are now able to start creating bundles by clicking "add to bundle"
+- You can add as many skins as you want to a bundle and then set a price for it
 
-The React Context API is used to provide the `auth state` and functions to handle authentication on the client. `client/src/util/auth.js` exports an `AuthProvider` component and `useAuth` hook to give other components access to auth functions and state. The `PrivateRoute` component may be used to prevent unauthenticated users from accessing a route. The technique used is based on the [auth workflow example](https://reactrouter.com/web/example/auth-workflow) from the React Router documentation.
+## Contribute
 
-## Client Side Routing
+Code is never really finished being added to, and this addition could come from developers other than the original creator. The following section describes how to contribute to this project:
 
-[React Router DOM](https://reactrouter.com/web/guides/quick-start) is included with some example routes in the initial client.
-
-## Database
-
-This app uses [Mongoose](https://mongoosejs.com/) for schema-based validation of application data.
+    For the future development of this app, there are several features that still need to be implemented. Users should be able to link their real steam inventories, a users balance should be hooked up to some sort of payment app such as Paypal, and users should be able to update an existing bundle to add or remove items.
