@@ -1,4 +1,10 @@
-function AddBundleForm({estimate, handlePriceChange, handleBundleSubmit, bundlePrice}) {
+function AddBundleForm({disabled, estimate, handlePriceChange, handleBundleSubmit, bundlePrice}) {
+    let color;
+    if (disabled) {
+        color = "gray";
+      } else {
+        color = "green";
+      }
     return (
         <form onSubmit={handleBundleSubmit} className="border-4 border-gray-300 rounded p-3 mb-2">
             Bundle Items
@@ -10,7 +16,9 @@ function AddBundleForm({estimate, handlePriceChange, handleBundleSubmit, bundleP
                 <div className="flex flex-col justify-center">
                     <p className="inline-block align-text-bottom text-base align-middle">Price Estimate: ${estimate}</p>
                 </div>
-                <button type="submit" className="text-sm py-2 px-3 font-sans font-bold border-2 border-green-900 bg-green-700 rounded">Bundle</button>
+                <button disabled={disabled} type="submit" className={`text-sm py-2 px-3 font-sans font-bold border-2 border-${color}-900 bg-${color}-700 rounded`}>
+                    Bundle
+                </button>
             </div>
         </form>
     )
