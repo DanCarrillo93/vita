@@ -1,55 +1,100 @@
-# MERN Auth Boilerplate
+# VITA (Virtual Item Trading App)
 
-This setup allows for a MERN app which can be easily deployed to Heroku.
+## Table of Contents
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+[Installation](#install) | [Usage](#usage) | [Contribute](#contribute)
 
-## Starting the app locally
+## Description
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+---
 
-```
-npm install
-```
+This app allows a user to find other gamers who are looking to buy and sell their Counter Strike weapon skins. Seeing as how Steam takes a large percentage of all skins sold on their website, its only fair that some would want to circumvent this cut into their profits, especially if their items are totalling into several hundreds of dollars or more. This app looks to solve this by providing a platform for users to find each other to trade skins instead of selling them on the Steam marketplace at a loss.
 
-This should install node modules within the server and the client folder.
+## Install
 
-You will need to create a `.env` file in the root folder with the following environmental variable definitions:
+---
 
-```sh
-SESSION_SECRET=
-MONGODB_URI=mongodb://localhost/{database_name}
-```
+After cloning this project, you can run the following command to install all of the required packages
 
-After both installations are complete and the `.env` file has been configured, run the following command in your terminal:
+    npm i
 
-```
-npm start
-```
+Next, you will need to seed the database with weapon and skin information by running this command:
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+    node seeder/seed.js
 
-## Deployment (Heroku)
+## Usage
 
-1. Create your Heroku app.
+---
 
-2. Create a database on MongoDB Atlas or another MongoDB cloud provider.
+Since there could be several ways to input information into a project, it is important to state how it should be used. The following section describes the functionality of each page:
 
-3. Add `MONGODB_URI` and `SESSION_SECRET` along with any other environmental variables required by your app
-   to the Heroku config.
+### Login / Sign-up Pages
 
-4. Deploy the app by linking the GitHub repo to your Heroku app or running `git push heroku main`.
+- Create a new profile with username, email, password, and steam ID
+- Validation on login page for profiles created on sign-up page
 
-## Sessions and Authentication
+---
 
-`express-session` is used to create sessions. Configure the middleware and cookies by editing `config/session.js`. Routes for handling user signup, authentication, and logout have been included in `router/userRouter.js`.
+## ![Image of Sign-Up page](./img/signup.png)
 
-The React Context API is used to provide the `auth state` and functions to handle authentication on the client. `client/src/util/auth.js` exports an `AuthProvider` component and `useAuth` hook to give other components access to auth functions and state. The `PrivateRoute` component may be used to prevent unauthenticated users from accessing a route. The technique used is based on the [auth workflow example](https://reactrouter.com/web/example/auth-workflow) from the React Router documentation.
+### Home Page
 
-## Client Side Routing
+- View bundles from other users
+- Bundles can still be viewed when not logged in
+- Bundles have information on amount of items in the bundle, the price of the bundle, and a link to a page to view the bundle in detail.
+- The bundles are sortable by a dropdown menu at the top of the screen which lets users find a bundle that contains a specific weapon type
 
-[React Router DOM](https://reactrouter.com/web/guides/quick-start) is included with some example routes in the initial client.
+---
 
-## Database
+## ![Image of Home page](./img/home.png)
 
-This app uses [Mongoose](https://mongoosejs.com/) for schema-based validation of application data.
+### Listings Page
+
+- After clicking on view bundle from the homepage, you will be brought to a page with information on every item in the bundle
+- Each individual item has information on average price, lowest price, and quantity traded in the last 30 days
+- Clicking on buy bundle will put the skins into your inventory and reduce your balance by how much the bundle cost
+  -A message will appear showing that you bought the bundle successfully (shown in image below)
+- After a few seconds, you will be redirected to the dashboard page after purchasing the bundle
+
+---
+
+## ![Image of Listing page](./img/listing.png)
+
+### Dashboard Page
+
+- On the dashboard, you can add items into your inventory
+- Setting weapon type, skin name, and condition will create a new item in your inventory that matches its description
+- When you have skins in your inventory, you are now able to start creating bundles by clicking the "add to bundle" button on any of the items
+- You can add as many skins as you want to a bundle and then set a price for it
+- Bundles will appear on the right after a user has created a bundle
+- From the dashboard a user can delete their bundle to get it taken off the home page, and get their items back in their inventory
+
+---
+
+## ![Image of Dashboard page](./img/dashboard.png)
+
+## Contribute
+
+---
+
+Code is never really finished being added to, and this addition could come from developers that are not the original creator. The following section describes how to contribute to this project:
+
+For the future development of this app, there are several features that still need to be implemented.
+
+    Users should be able to link their real steam inventories to their profile.
+
+    Users balance should be hooked up to some sort of payment app such as PayPal where they can add money to their balance.
+
+    Users should be able to update an existing bundle to add or remove items.
+
+## Developers
+
+---
+
+Zack Campbell - https://github.com/zax5021
+
+Daniel Carrillo - https://github.com/DanCarrillo93
+
+Adrian Mata - https://github.com/amata7
+
+Oliver Shih - https://github.com/runescape11111
