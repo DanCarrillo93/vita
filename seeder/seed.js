@@ -3,7 +3,8 @@ const db = require("../models");
 require("dotenv").config();
 
 
-mongoose.connect(process.env.MONGODB_URI, {
+async function seed() { 
+  await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -81,3 +82,6 @@ for(let i = 0; i < weaponNames.length; i += 1) {
         process.exit(1);
       });
 };
+}
+
+seed();

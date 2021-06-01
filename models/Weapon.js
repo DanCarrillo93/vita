@@ -4,7 +4,7 @@ const WeaponSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
   },
   name: {
     type: String,
